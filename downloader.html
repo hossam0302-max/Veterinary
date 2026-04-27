@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحميل مشروع نعمة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 50%, #00897b 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 48px 40px;
+            max-width: 640px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .logo { font-size: 48px; margin-bottom: 8px; }
+        .brand { font-size: 32px; font-weight: 800; color: #2e7d32; margin-bottom: 4px; }
+        .subtitle { font-size: 14px; color: #888; margin-bottom: 28px; }
+        .title { font-size: 20px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; }
+        .desc { font-size: 14px; color: #666; margin-bottom: 28px; line-height: 1.7; }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+        .stat-box {
+            background: #f5f7fb;
+            border-radius: 10px;
+            padding: 14px;
+            border: 1.5px solid #e8ecf0;
+        }
+        .stat-num { font-size: 22px; font-weight: 800; color: #2e7d32; }
+        .stat-label { font-size: 11px; color: #999; font-weight: 600; margin-top: 2px; }
+
+        .files-list {
+            background: #f5f7fb;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 28px;
+            text-align: right;
+        }
+        .files-list-title {
+            font-size: 13px; font-weight: 700; color: #2e7d32;
+            margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+        }
+        .file-item {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 10px 14px; background: white; border-radius: 8px;
+            margin-bottom: 6px; border: 1.5px solid #e8ecf0; transition: all 0.3s;
+        }
+        .file-item:last-child { margin-bottom: 0; }
+        .file-item.done { border-color: #4caf50; background: #f1f8e9; }
+        .file-left { display: flex; align-items: center; gap: 10px; }
+        .file-icon { font-size: 16px; color: #2e7d32; width: 20px; text-align: center; }
+        .file-name { font-size: 13px; font-weight: 700; color: #1a1a2e; }
+        .file-desc { font-size: 11px; color: #999; }
+        .file-status { font-size: 14px; min-width: 20px; text-align: center; }
+
+        .btn-download {
+            background: linear-gradient(135deg, #2e7d32, #00897b);
+            color: white; border: none; padding: 16px 40px; border-radius: 50px;
+            font-size: 17px; font-weight: 700; font-family: 'Tajawal', sans-serif;
+            cursor: pointer; display: inline-flex; align-items: center; gap: 12px;
+            transition: all 0.3s; box-shadow: 0 6px 20px rgba(46,125,50,0.4);
+            width: 100%; justify-content: center; margin-bottom: 16px;
+        }
+        .btn-download:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(46,125,50,0.5);
+        }
+        .btn-download:disabled { background: #aaa; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .btn-separate {
+            background: white; color: #2e7d32; border: 2px solid #2e7d32;
+            padding: 12px 32px; border-radius: 50px; font-size: 15px; font-weight: 700;
+            font-family: 'Tajawal', sans-serif; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 10px;
+            transition: all 0.3s; width: 100%; justify-content: center; margin-bottom: 16px;
+        }
+        .btn-separate:hover { background: #e8f5e9; }
+
+        .progress-wrap { display: none; margin-bottom: 20px; }
+        .progress-wrap.show { display: block; }
+        .progress-label {
+            display: flex; justify-content: space-between;
+            font-size: 13px; font-weight: 600; color: #444; margin-bottom: 8px;
+        }
+        .progress-track { background: #e0e0e0; border-radius: 50px; height: 10px; overflow: hidden; }
+        .progress-fill {
+            background: linear-gradient(90deg, #2e7d32, #4caf50);
+            height: 100%; border-radius: 50px; transition: width 0.3s ease; width: 0%;
+        }
+
+        .success-msg {
+            display: none; background: #e8f5e9; border: 1.5px solid #4caf50;
+            border-radius: 12px; padding: 14px 20px; color: #2e7d32;
+            font-size: 14px; font-weight: 600; margin-bottom: 16px;
+            align-items: center; gap: 10px; text-align: right;
+        }
+        .success-msg.show { display: flex; }
+
+        .divider { height: 1px; background: #eee; margin: 20px 0; }
+        .note { font-size: 12px; color: #aaa; line-height: 1.6; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="logo">🌿</div>
+    <div class="brand">نعمة</div>
+    <div class="subtitle">منصة الخدمات البيطرية</div>
+    <div class="title">تحميل ملفات مشروع تغيير نشاط لمنشأة بيطرية</div>
+    <div class="desc">اختر طريقة التحميل المناسبة. الطريقة الأولى تحمّل كل ملف بشكل منفصل، والطريقة الثانية تحمّل ملف HTML واحد يحتوي على كل شيء.</div>
+
+    <div class="stats">
+        <div class="stat-box"><div class="stat-num">8</div><div class="stat-label">ملفات HTML</div></div>
+        <div class="stat-box"><div class="stat-num">1</div><div class="stat-label">ملف CSS</div></div>
+        <div class="stat-box"><div class="stat-num">9</div><div class="stat-label">إجمالي الملفات</div></div>
+    </div>
+
+    <div class="files-list">
+        <div class="files-list-title"><i class="fas fa-folder-open"></i> الملفات المتضمنة</div>
+        <div class="file-item" id="fi-css">
+            <div class="file-left"><span class="file-icon"><i class="fas fa-palette"></i></span><div><div class="file-name">styles.css</div><div class="file-desc">أنماط التصميم المشتركة</div></div></div>
+            <span class="file-status" id="fs-css">⏳</span>
+        </div>
+        <div class="file-item" id="fi-p1">
+            <div class="file-left"><span class="file-icon"><i class="fas fa-home"></i></span><div><div class="file-name">page1.html</div><div class="file-desc">الصفحة الرئيسية</div></div></div>
+            <span class="file-status" id="fs-p1">⏳</span>
+        </div>
+        <div class="file-item" id="fi-p2">
+            <div class="file-left"><span class="file-icon"><i class="fas fa-shield-alt"></i></span><div><div class="file-name">page2.html</div><div class="file-desc">قيود الاستخدام</div></div></div>
+            <span class="file-status" id="fs-p2">⏳</span>
+        </div>
+        <div class="file-item" id="fi-p3">
+            <div class="file-left"><span class="file-icon"><i class="fas fa-database"></i></span><div><div class="file-name">page3.html</div><div class="file-desc">البيانات المسترجعة</div></div></div>
+            <span class="file-status" id="fs-p3">⏳</span>
+        </div>
+        <div class="file-item" id="fi-p4">
+            <div class="file-left"><span class="file-icon"><i class="fas fa-file-alt"></i></span><div><div class="file-name">page4.html</div><div class="file-desc">بيانات الطلب</div></div></div>
+            <span class="file-status" id="fs-p4">⏳</span>
+        </div>
+        <div class="file-item" id="fi-p5">
+            <div class="file-left"><span class="file-icon"><i class="fas fa-paperclip"></i></span><div><div class="file-name">page5.html</div><div class="file-desc">المرفقات</div></div></div>
+            <span class="file-status" id="fs-p5">⏳</span>
+        </div>
+        <div class="file-item" id="fi-p6">
+            <div class="file-left"><span class="file-icon"><i class="fas fa-clipboard-check"></i></span><div><div class="file-name">page6.html</div><div class="file-desc">مراجعة الطلب</div></div></div>
+            <span class="file-status" id="fs-p6">⏳</span>
+        </div>
+    </div>
+
+    <div class="progress-wrap" id="progressWrap">
+        <div class="progress-label">
+            <span id="progressText">جاري التحميل...</span>
+            <span id="progressPct">0%</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+
+    <div class="success-msg" id="successMsg">
+        <i class="fas fa-check-circle" style="font-size:20px;flex-shrink:0"></i>
+        <span>تم تحميل جميع الملفات! ضعها في مجلد واحد وافتح page1.html</span>
+    </div>
+
+    <!-- الزر الرئيسي: تحميل كل ملف على حدة -->
+    <button class="btn-download" id="downloadBtn" onclick="downloadAllFiles()">
+        <i class="fas fa-download"></i>
+        تحميل جميع الملفات (كل ملف منفصل)
+    </button>
+
+    <div class="divider"></div>
+    <div class="note">💡 سيتم تحميل الملفات واحداً تلو الآخر. ضع جميع الملفات في مجلد واحد على جهازك ثم افتح page1.html في المتصفح.</div>
+</div>
+
+<script>
+// =================== محتوى الملفات ===================
+
+const STYLES_CSS = `/* ===== GLOBAL STYLES ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --primary: #2e7d32; --primary-dark: #1b5e20; --primary-light: #4caf50;
+    --primary-bg: #e8f5e9; --secondary: #00897b; --accent: #f9a825;
+    --text-dark: #1a1a2e; --text-medium: #4a4a6a; --text-light: #8888aa;
+    --border: #dde2ee; --bg-light: #f5f7fb; --bg-white: #ffffff;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.06); --shadow-md: 0 4px 20px rgba(0,0,0,0.1);
+    --radius-sm: 8px; --radius-md: 12px; --radius-lg: 20px; --radius-xl: 28px;
+}
+body { font-family: 'Tajawal', sans-serif; background: var(--bg-light); color: var(--text-dark); direction: rtl; min-height: 100vh; display: flex; flex-direction: column; }
+.main-header { background: var(--bg-white); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--primary); }
+.header-container { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 70px; }
+.header-right { display: flex; align-items: center; gap: 12px; }
+.logo-fallback { display: flex; align-items: center; gap: 10px; }
+.logo-icon { font-size: 32px; }
+.logo-text { font-size: 26px; font-weight: 800; color: var(--primary); }
+.header-left { display: flex; align-items: center; gap: 20px; }
+.user-info { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 6px 14px; border-radius: 50px; border: 1.5px solid var(--border); transition: all 0.2s; }
+.user-info:hover { background: var(--primary-bg); border-color: var(--primary); }
+.user-name { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+.user-avatar { width: 34px; height: 34px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; }
+.lang-switch { background: var(--primary-bg); color: var(--primary); border: 1.5px solid var(--primary); padding: 6px 16px; border-radius: 50px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+.lang-switch:hover { background: var(--primary); color: white; }
+.breadcrumb-bar { background: var(--bg-white); border-bottom: 1px solid var(--border); padding: 10px 0; }
+.breadcrumb-bar .container { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.breadcrumb-item a { color: var(--primary); text-decoration: none; font-size: 13px; font-weight: 500; }
+.breadcrumb-item a:hover { text-decoration: underline; }
+.breadcrumb-item.active { color: var(--text-medium); font-size: 13px; }
+.breadcrumb-sep { color: var(--text-light); font-size: 11px; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+.main-content { flex: 1; padding: 32px 0; }
+.service-strip { display: flex; align-items: center; gap: 16px; background: var(--bg-white); border-radius: var(--radius-lg); padding: 18px 24px; margin-bottom: 24px; box-shadow: var(--shadow-sm); border-right: 4px solid var(--primary); }
+.service-strip-icon { width: 48px; height: 48px; background: var(--primary-bg); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 20px; flex-shrink: 0; }
+.service-strip-title { font-size: 17px; font-weight: 800; color: var(--text-dark); margin-bottom: 2px; }
+.service-strip-sub { font-size: 12.5px; color: var(--text-light); }
+.service-card { background: var(--bg-white); border-radius: var(--radius-xl); box-shadow: var(--shadow-md); overflow: hidden; }
+.service-header { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--secondary) 100%); padding: 40px; display: flex; align-items: flex-start; gap: 24px; position: relative; overflow: hidden; }
+.service-header::before { content: ''; position: absolute; top: -60px; left: -60px; width: 250px; height: 250px; background: rgba(255,255,255,0.06); border-radius: 50%; }
+.service-icon-wrap { flex-shrink: 0; position: relative; z-index: 1; }
+.service-icon { width: 72px; height: 72px; background: rgba(255,255,255,0.18); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 30px; color: white; border: 2px solid rgba(255,255,255,0.25); }
+.service-title-wrap { flex: 1; position: relative; z-index: 1; }
+.service-title { font-size: 28px; font-weight: 800; color: white; margin-bottom: 14px; line-height: 1.3; }
+.service-meta { display: flex; gap: 12px; flex-wrap: wrap; }
+.meta-badge { background: rgba(255,255,255,0.18); color: white; padding: 5px 14px; border-radius: 50px; font-size: 13px; display: flex; align-items: center; gap: 6px; border: 1px solid rgba(255,255,255,0.25); }
+.service-details-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--border); }
+.detail-item { display: flex; align-items: center; gap: 14px; padding: 24px 28px; border-left: 1px solid var(--border); transition: background 0.2s; }
+.detail-item:last-child { border-left: none; }
+.detail-item:hover { background: var(--bg-light); }
+.detail-icon { width: 44px; height: 44px; background: var(--primary-bg); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; flex-shrink: 0; }
+.detail-label { display: block; font-size: 12px; color: var(--text-light); margin-bottom: 4px; }
+.detail-value { display: block; font-size: 15px; font-weight: 700; color: var(--text-dark); }
+.stars-wrap { display: flex; align-items: center; gap: 3px; }
+.star-filled, .star-half { color: var(--accent); font-size: 14px; }
+.rating-num { font-size: 14px; font-weight: 700; color: var(--text-dark); margin-right: 4px; }
+.service-description, .service-requirements { padding: 28px 40px; border-bottom: 1px solid var(--border); }
+.service-description h3, .service-requirements h3 { font-size: 17px; font-weight: 700; color: var(--primary-dark); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.service-description h3::before, .service-requirements h3::before { content: ''; display: block; width: 4px; height: 20px; background: var(--primary); border-radius: 4px; }
+.service-description p { font-size: 15px; color: var(--text-medium); line-height: 1.9; }
+.requirements-list { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.requirements-list li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text-medium); }
+.requirements-list li i { color: var(--primary); font-size: 16px; flex-shrink: 0; }
+.service-actions { padding: 28px 40px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; padding: 13px 32px; border-radius: 50px; font-size: 15px; font-weight: 700; font-family: 'Tajawal', sans-serif; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; box-shadow: 0 4px 15px rgba(46,125,50,0.35); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(46,125,50,0.45); }
+.btn-secondary { background: var(--bg-white); color: var(--primary); border: 2px solid var(--primary); padding: 11px 28px; border-radius: 50px; font-size: 15px; font-weight: 600; font-family: 'Tajawal', sans-serif; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; text-decoration: none; }
+.btn-secondary:hover { background: var(--primary-bg); transform: translateY(-1px); }
+.wizard-layout { display: grid; grid-template-columns: 260px 1fr; gap: 28px; align-items: start; }
+.progress-sidebar { background: var(--bg-white); border-radius: var(--radius-xl); box-shadow: var(--shadow-md); padding: 28px 20px; position: sticky; top: 100px; }
+.progress-title { font-size: 15px; font-weight: 700; color: var(--text-dark); margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); text-align: center; }
+.steps-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.step-item { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: var(--radius-md); transition: all 0.25s; position: relative; }
+.step-item::after { content: ''; position: absolute; bottom: -4px; right: 28px; width: 2px; height: 8px; background: var(--border); }
+.step-item:last-child::after { display: none; }
+.step-item.active { background: var(--primary-bg); }
+.step-num { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0; border: 2.5px solid var(--border); background: var(--bg-white); color: var(--text-light); transition: all 0.25s; }
+.step-item.active .step-num { background: var(--primary); border-color: var(--primary); color: white; box-shadow: 0 3px 10px rgba(46,125,50,0.3); }
+.step-item.completed .step-num { background: var(--primary-light); border-color: var(--primary-light); color: white; }
+.step-info { flex: 1; }
+.step-label { font-size: 13px; color: var(--text-light); font-weight: 500; display: block; }
+.step-item.active .step-label { color: var(--primary-dark); font-weight: 700; }
+.step-item.completed .step-label { color: var(--text-medium); }
+.step-name { font-size: 12px; color: var(--text-light); display: block; }
+.progress-bar-wrap { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border); }
+.progress-bar-label { display: flex; justify-content: space-between; font-size: 12.5px; font-weight: 600; color: var(--text-medium); margin-bottom: 8px; }
+.progress-bar-track { background: var(--border); border-radius: 50px; height: 8px; overflow: hidden; }
+.progress-bar-fill { background: linear-gradient(90deg, var(--primary), var(--primary-light)); height: 100%; border-radius: 50px; transition: width 0.5s ease; }
+.wizard-content { background: var(--bg-white); border-radius: var(--radius-xl); box-shadow: var(--shadow-md); overflow: hidden; }
+.wizard-header { background: linear-gradient(135deg, var(--primary-dark), var(--primary)); padding: 28px 36px; display: flex; align-items: center; gap: 18px; }
+.wizard-header-icon { width: 56px; height: 56px; background: rgba(255,255,255,0.2); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; border: 2px solid rgba(255,255,255,0.25); flex-shrink: 0; }
+.wizard-header-title h2 { font-size: 20px; font-weight: 800; color: white; margin-bottom: 4px; }
+.wizard-header-title p { font-size: 13px; color: rgba(255,255,255,0.8); }
+.wizard-body { padding: 36px; }
+.subsection-header { background: linear-gradient(135deg, #f0f7f0, #e8f5e9); border: 1.5px solid #c8e6c9; border-radius: var(--radius-md); padding: 14px 20px; margin-bottom: 20px; margin-top: 28px; display: flex; align-items: center; gap: 10px; }
+.subsection-header:first-of-type { margin-top: 0; }
+.subsection-header i { color: var(--primary); font-size: 18px; }
+.subsection-header h4 { font-size: 15px; font-weight: 700; color: var(--primary-dark); }
+.section-divider { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; margin-top: 32px; }
+.section-divider-icon { width: 42px; height: 42px; background: var(--primary-bg); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; flex-shrink: 0; }
+.section-divider h3 { font-size: 16px; font-weight: 700; color: var(--text-dark); }
+.section-divider-line { flex: 1; height: 1px; background: var(--border); }
+.form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+.form-label { font-size: 13.5px; font-weight: 600; color: var(--text-dark); display: flex; align-items: center; gap: 6px; }
+.form-label .required { color: #e53935; font-size: 16px; line-height: 1; }
+.form-control { border: 1.8px solid var(--border); border-radius: var(--radius-sm); padding: 11px 16px; font-size: 14px; font-family: 'Tajawal', sans-serif; color: var(--text-dark); background: var(--bg-white); transition: all 0.25s; width: 100%; outline: none; -webkit-appearance: none; }
+.form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(46,125,50,0.12); }
+.form-control:disabled { background: #f8f9fb; color: var(--text-medium); cursor: not-allowed; border-color: #e8ecf0; }
+select.form-control { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232e7d32'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: left 12px center; background-size: 20px; padding-left: 36px; cursor: pointer; }
+.readonly-field { background: #f8f9fb; border: 1.8px solid #e8ecf0; border-radius: var(--radius-sm); padding: 11px 16px; font-size: 14px; color: var(--text-medium); font-family: 'Tajawal', sans-serif; min-height: 46px; display: flex; align-items: center; }
+.wizard-footer { padding: 24px 36px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: #fafbfc; }
+.alert-box { background: #fff8e1; border: 1.5px solid #f9a825; border-radius: var(--radius-md); padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start; margin-bottom: 28px; }
+.alert-box.alert-info { background: #e3f2fd; border-color: #1976d2; }
+.alert-box.alert-success { background: var(--primary-bg); border-color: var(--primary); }
+.alert-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+.alert-box.alert-info .alert-icon { color: #1976d2; }
+.alert-box .alert-icon { color: var(--accent); }
+.alert-box.alert-success .alert-icon { color: var(--primary); }
+.alert-text { font-size: 14px; color: var(--text-medium); line-height: 1.8; }
+.alert-text strong { display: block; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+.restrictions-box { border: 1.8px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 28px; }
+.restrictions-header { background: var(--bg-light); padding: 18px 24px; border-bottom: 1px solid var(--border); font-size: 15px; font-weight: 700; color: var(--primary-dark); display: flex; align-items: center; gap: 10px; }
+.restrictions-body { padding: 24px; max-height: 350px; overflow-y: auto; line-height: 2; font-size: 14px; color: var(--text-medium); }
+.restrictions-body::-webkit-scrollbar { width: 6px; }
+.restrictions-body::-webkit-scrollbar-thumb { background: var(--primary-light); border-radius: 3px; }
+.restriction-item { display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start; }
+.restriction-num { width: 26px; height: 26px; background: var(--primary-bg); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+.checkbox-wrap { display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 16px 20px; border: 1.8px solid var(--border); border-radius: var(--radius-md); transition: all 0.25s; user-select: none; }
+.checkbox-wrap:hover { border-color: var(--primary); background: var(--primary-bg); }
+.checkbox-wrap.checked { border-color: var(--primary); background: var(--primary-bg); }
+.checkbox-custom { width: 22px; height: 22px; border: 2px solid var(--border); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.25s; background: white; }
+.checkbox-wrap.checked .checkbox-custom { background: var(--primary); border-color: var(--primary); }
+.checkbox-wrap.checked .checkbox-custom i { display: block !important; }
+.checkbox-custom i { display: none; color: white; font-size: 13px; }
+.checkbox-label { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+.data-card { background: var(--bg-light); border-radius: var(--radius-lg); padding: 28px; margin-bottom: 24px; border: 1.5px solid var(--border); }
+.data-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.data-card-icon { width: 42px; height: 42px; background: var(--primary-bg); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; }
+.data-card-title { font-size: 16px; font-weight: 700; color: var(--primary-dark); }
+.data-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.data-field { background: white; border-radius: var(--radius-md); padding: 14px 16px; border: 1.5px solid #e8ecf0; }
+.data-field-label { font-size: 11.5px; color: var(--text-light); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
+.data-field-value { font-size: 14.5px; font-weight: 700; color: var(--text-dark); display: block; }
+.attachment-card { border: 1.8px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.attachment-header { background: var(--bg-light); padding: 16px 24px; border-bottom: 1px solid var(--border); font-size: 14px; font-weight: 700; color: var(--text-dark); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.attachment-header-right { display: flex; align-items: center; gap: 10px; }
+.required-badge { background: #ffebee; color: #c62828; font-size: 11px; padding: 2px 8px; border-radius: 50px; font-weight: 600; }
+.attachment-body { padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.attachment-preview { display: flex; align-items: center; gap: 16px; flex: 1; }
+.attachment-thumb { width: 64px; height: 64px; background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 28px; color: var(--primary); border: 1.5px solid var(--border); flex-shrink: 0; }
+.attachment-name { font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; display: block; }
+.attachment-meta { font-size: 12px; color: var(--text-light); display: flex; align-items: center; gap: 10px; }
+.attachment-actions { display: flex; gap: 10px; }
+.btn-icon { width: 40px; height: 40px; border-radius: var(--radius-sm); border: 1.5px solid var(--border); background: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; color: var(--text-medium); text-decoration: none; }
+.btn-icon:hover { background: var(--primary-bg); border-color: var(--primary); color: var(--primary); }
+.review-section { margin-bottom: 28px; }
+.review-section-title { font-size: 16px; font-weight: 700; color: var(--primary-dark); margin-bottom: 18px; padding-bottom: 12px; border-bottom: 2px solid var(--primary-bg); display: flex; align-items: center; gap: 10px; }
+.review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.review-field { padding: 14px 16px; background: var(--bg-light); border-radius: var(--radius-md); border: 1.5px solid var(--border); }
+.review-label { font-size: 11.5px; color: var(--text-light); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
+.review-value { font-size: 14px; font-weight: 700; color: var(--text-dark); display: block; }
+.review-attachment { display: flex; align-items: center; gap: 14px; padding: 16px; background: var(--bg-light); border-radius: var(--radius-md); border: 1.5px solid var(--border); }
+.status-badge { padding: 4px 12px; border-radius: 50px; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; }
+.status-badge.success { background: var(--primary-bg); color: var(--primary-dark); }
+.main-footer { background: var(--text-dark); color: rgba(255,255,255,0.7); padding: 24px 0; margin-top: auto; }
+.footer-content { display: flex; align-items: center; justify-content: space-between; font-size: 13px; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: white; }
+@media (max-width: 1024px) { .wizard-layout { grid-template-columns: 1fr; } .progress-sidebar { position: static; } .steps-list { flex-direction: row; flex-wrap: wrap; gap: 8px; } .step-item { flex-direction: column; text-align: center; padding: 10px 12px; min-width: 80px; } .step-item::after { display: none; } .service-details-grid { grid-template-columns: repeat(2, 1fr); } .data-grid, .review-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .form-grid { grid-template-columns: 1fr; } .service-header { flex-direction: column; padding: 28px 24px; } .service-actions { flex-direction: column-reverse; align-items: stretch; } .btn-primary, .btn-secondary { justify-content: center; } .wizard-body { padding: 24px; } .wizard-footer { padding: 20px 24px; } .data-grid, .review-grid { grid-template-columns: 1fr; } .requirements-list { grid-template-columns: 1fr; } .service-details-grid { grid-template-columns: 1fr; } .detail-item { border-left: none; border-bottom: 1px solid var(--border); } .footer-content { flex-direction: column; gap: 12px; text-align: center; } .footer-links { flex-wrap: wrap; justify-content: center; } }`;
+
+// =================== PAGE 1 ===================
+const PAGE1 = `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نعمة - تغيير نشاط لمنشأة بيطرية</title>
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<header class="main-header"><div class="header-container">
+  <div class="header-right"><div class="logo-fallback" style="display:flex"><div class="logo-icon">🌿</div><span class="logo-text">نعمة</span></div></div>
+  <div class="header-left"><div class="user-info"><span class="user-name">محمد العتيبي</span><div class="user-avatar"><i class="fas fa-user"></i></div></div><div class="lang-switch">EN</div></div>
+</div></header>
+<div class="breadcrumb-bar"><div class="container">
+  <span class="breadcrumb-item"><a href="#">الرئيسية</a></span>
+  <span class="breadcrumb-sep"><i class="fas fa-chevron-left"></i></span>
+  <span class="breadcrumb-item"><a href="#">خدمات بيطرية</a></span>
+  <span class="breadcrumb-sep"><i class="fas fa-chevron-left"></i></span>
+  <span class="breadcrumb-item active">تغيير نشاط لمنشأة بيطرية</span>
+</div></div>
+<main class="main-content"><div class="container">
+  <div class="service-card">
+    <div class="service-header">
+      <div class="service-icon-wrap"><div class="service-icon"><i class="fas fa-exchange-alt"></i></div></div>
+      <div class="service-title-wrap">
+        <h1 class="service-title">تغيير نشاط لمنشأة بيطرية</h1>
+        <div class="service-meta">
+          <span class="meta-badge"><i class="fas fa-tag"></i> المنشآت البيطرية</span>
+          <span class="meta-badge"><i class="fas fa-building"></i> وزارة البيئة والمياه والزراعة</span>
+        </div>
+      </div>
+    </div>
+    <div class="service-details-grid">
+      <div class="detail-item"><div class="detail-icon"><i class="fas fa-clock"></i></div><div><span class="detail-label">مدة تقديم الخدمة</span><span class="detail-value">14 يوم عمل</span></div></div>
+      <div class="detail-item"><div class="detail-icon"><i class="fas fa-dollar-sign"></i></div><div><span class="detail-label">رسوم الخدمة</span><span class="detail-value">مجانية</span></div></div>
+      <div class="detail-item"><div class="detail-icon"><i class="fas fa-star"></i></div><div><span class="detail-label">تقييم الخدمة</span><div class="stars-wrap"><i class="fas fa-star star-filled"></i><i class="fas fa-star star-filled"></i><i class="fas fa-star star-filled"></i><i class="fas fa-star star-filled"></i><i class="fas fa-star-half star-half"></i><span class="rating-num">4.5</span></div></div></div>
+      <div class="detail-item"><div class="detail-icon"><i class="fas fa-users"></i></div><div><span class="detail-label">الفئة المستهدفة</span><span class="detail-value">المنشآت البيطرية المرخصة</span></div></div>
+    </div>
+    <div class="service-description"><h3>وصف الخدمة</h3><p>تتيح هذه الخدمة لأصحاب المنشآت البيطرية المرخصة تغيير النشاط التجاري للمنشأة إلى نشاط بيطري مختلف، وذلك وفق الشروط والاشتراطات المحددة من قِبل الإدارة العامة للخدمات البيطرية بوزارة البيئة والمياه والزراعة.</p></div>
+    <div class="service-requirements"><h3>متطلبات الخدمة</h3>
+      <ul class="requirements-list">
+        <li><i class="fas fa-check-circle"></i> ترخيص تشغيل ساري المفعول</li>
+        <li><i class="fas fa-check-circle"></i> رخصة بلدية سارية</li>
+        <li><i class="fas fa-check-circle"></i> كروكي معتمد من مكتب هندسي</li>
+        <li><i class="fas fa-check-circle"></i> استيفاء اشتراطات النشاط المراد الانتقال إليه</li>
+      </ul>
+    </div>
+    <div class="service-actions">
+      <button class="btn-secondary"><i class="fas fa-info-circle"></i> دليل الخدمة</button>
+      <a href="page2.html" class="btn-primary">طلب الخدمة <i class="fas fa-arrow-left"></i></a>
+    </div>
+  </div>
+</div></main>
+<footer class="main-footer"><div class="container"><div class="footer-content">
+  <p>© 2025 منصة نعمة - وزارة البيئة والمياه والزراعة. جميع الحقوق محفوظة.</p>
+  <div class="footer-links"><a href="#">سياسة الخصوصية</a><a href="#">شروط الاستخدام</a><a href="#">تواصل معنا</a></div>
+</div></div></footer>
+</body></html>`;
+
+// =================== PAGE 2 ===================
+const PAGE2 = `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نعمة - قيود الاستخدام</title>
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<header class="main-header"><div class="header-container">
+  <div class="header-right"><div class="logo-fallback" style="display:flex"><div class="logo-icon">🌿</div><span class="logo-text">نعمة</span></div></div>
+  <div class="header-left"><div class="user-info"><span class="user-name">محمد العتيبي</span><div class="user-avatar"><i class="fas fa-user"></i></div></div><div class="lang-switch">EN</div></div>
+</div></header>
+<div class="breadcrumb-bar"><div class="container">
+  <span class="breadcrumb-item"><a href="page1.html">الرئيسية</a></span>
+  <span class="breadcrumb-sep"><i class="fas fa-chevron-left"></i></span>
+  <span class="breadcrumb-item active">تغيير نشاط لمنشأة بيطرية</span>
+</div></div>
+<main class="main-content"><div class="container">
+  <div class="service-strip"><div class="service-strip-icon"><i class="fas fa-exchange-alt"></i></div><div><h2 class="service-strip-title">تغيير نشاط لمنشأة بيطرية</h2><span class="service-strip-sub">وزارة البيئة والمياه والزراعة</span></div></div>
+  <div class="wizard-layout">
+    <aside class="progress-sidebar">
+      <div class="progress-title">خطوات الطلب</div>
+      <ul class="steps-list">
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 1</span><span class="step-name">الصفحة الرئيسية</span></div></li>
+        <li class="step-item active"><div class="step-num">2</div><div class="step-info"><span class="step-label">الخطوة 2</span><span class="step-name">قيود الاستخدام</span></div></li>
+        <li class="step-item"><div class="step-num">3</div><div class="step-info"><span class="step-label">الخطوة 3</span><span class="step-name">البيانات المسترجعة</span></div></li>
+        <li class="step-item"><div class="step-num">4</div><div class="step-info"><span class="step-label">الخطوة 4</span><span class="step-name">بيانات الطلب</span></div></li>
+        <li class="step-item"><div class="step-num">5</div><div class="step-info"><span class="step-label">الخطوة 5</span><span class="step-name">المرفقات</span></div></li>
+        <li class="step-item"><div class="step-num">6</div><div class="step-info"><span class="step-label">الخطوة 6</span><span class="step-name">مراجعة الطلب</span></div></li>
+      </ul>
+      <div class="progress-bar-wrap"><div class="progress-bar-label"><span>التقدم</span><span>17%</span></div><div class="progress-bar-track"><div class="progress-bar-fill" style="width:17%"></div></div></div>
+    </aside>
+    <div class="wizard-content">
+      <div class="wizard-header"><div class="wizard-header-icon"><i class="fas fa-shield-alt"></i></div><div class="wizard-header-title"><h2>قيود الاستخدام</h2><p>يرجى قراءة الشروط والأحكام والموافقة عليها للمتابعة</p></div></div>
+      <div class="wizard-body">
+        <div class="alert-box alert-info"><div class="alert-icon"><i class="fas fa-info-circle"></i></div><div class="alert-text"><strong>تنبيه مهم</strong>يرجى قراءة قيود الاستخدام بعناية قبل تقديم الطلب. تأكد من استيفاء جميع الشروط والمتطلبات اللازمة.</div></div>
+        <div class="restrictions-box">
+          <div class="restrictions-header"><i class="fas fa-file-contract" style="color:var(--primary)"></i> الشروط والأحكام وقيود الاستخدام</div>
+          <div class="restrictions-body">
+            <div class="restriction-item"><div class="restriction-num">1</div><div>يجب أن تكون المنشأة البيطرية حاصلة على ترخيص تشغيلي ساري المفعول صادر من وزارة البيئة والمياه والزراعة، وأن يكون الترخيص غير موقوف أو ملغى.</div></div>
+            <div class="restriction-item"><div class="restriction-num">2</div><div>يجب أن تكون المنشأة حاصلة على رخصة بلدية سارية المفعول وأن تكون المنشأة مسجلة في منصة بلدي.</div></div>
+            <div class="restriction-item"><div class="restriction-num">3</div><div>لا يحق لصاحب المنشأة تغيير النشاط أكثر من مرة في السنة الواحدة، ويجب ألا يكون قد مضى على آخر تغيير نشاط أقل من اثني عشر شهراً.</div></div>
+            <div class="restriction-item"><div class="restriction-num">4</div><div>يجب أن تستوفي المنشأة جميع الاشتراطات الفنية والهندسية الخاصة بالنشاط المراد الانتقال إليه وفقاً للمتطلبات المحددة من قِبل الإدارة العامة للخدمات البيطرية.</div></div>
+            <div class="restriction-item"><div class="restriction-num">5</div><div>يلتزم صاحب المنشأة بتقديم جميع المستندات المطلوبة بصورة واضحة وكاملة، وأن تكون المستندات حديثة وغير منتهية الصلاحية.</div></div>
+            <div class="restriction-item"><div class="restriction-num">6</div><div>يُقر مقدم الطلب بأن جميع المعلومات المقدمة صحيحة ودقيقة، وأن تقديم معلومات مضللة أو غير صحيحة يُعرّض صاحبها للمساءلة القانونية.</div></div>
+            <div class="restriction-item"><div class="restriction-num">7</div><div>تحتفظ الوزارة بحق رفض الطلب أو طلب مستندات إضافية أو إجراء زيارة ميدانية للتحقق من مطابقة المنشأة للاشتراطات قبل اتخاذ القرار النهائي.</div></div>
+            <div class="restriction-item"><div class="restriction-num">8</div><div>في حال الموافقة على تغيير النشاط، يجب على صاحب المنشأة الالتزام بجميع اشتراطات النشاط الجديد خلال مدة لا تتجاوز ثلاثة أشهر من تاريخ الموافقة.</div></div>
+            <div class="restriction-item"><div class="restriction-num">9</div><div>يُعدّ صاحب المنشأة مسؤولاً مسؤولية كاملة عن الالتزام بجميع الأنظمة واللوائح والتعليمات المتعلقة بالنشاط البيطري الجديد.</div></div>
+            <div class="restriction-item"><div class="restriction-num">10</div><div>تُطبَّق غرامات وعقوبات نظامية في حال مخالفة الشروط والاشتراطات وفقاً لنظام مزاولة المهن البيطرية ولوائحه التنفيذية.</div></div>
+          </div>
+        </div>
+        <div class="checkbox-wrap" id="agreeCheckbox" onclick="toggleAgree()">
+          <div class="checkbox-custom" id="checkboxCustom"><i class="fas fa-check"></i></div>
+          <span class="checkbox-label">أوافق على قيود الاستخدام والشروط والأحكام المذكورة أعلاه</span>
+        </div>
+      </div>
+      <div class="wizard-footer">
+        <a href="page1.html" class="btn-secondary"><i class="fas fa-arrow-right"></i> السابق</a>
+        <a href="page3.html" class="btn-primary" id="nextBtn" style="pointer-events:none;opacity:0.5">التالي <i class="fas fa-arrow-left"></i></a>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="main-footer"><div class="container"><div class="footer-content"><p>© 2025 منصة نعمة - وزارة البيئة والمياه والزراعة. جميع الحقوق محفوظة.</p><div class="footer-links"><a href="#">سياسة الخصوصية</a><a href="#">شروط الاستخدام</a><a href="#">تواصل معنا</a></div></div></div></footer>
+<script>
+let agreed=false;
+function toggleAgree(){
+  agreed=!agreed;
+  const cb=document.getElementById('agreeCheckbox');
+  const nb=document.getElementById('nextBtn');
+  if(agreed){cb.classList.add('checked');nb.style.pointerEvents='auto';nb.style.opacity='1';}
+  else{cb.classList.remove('checked');nb.style.pointerEvents='none';nb.style.opacity='0.5';}
+}
+<\/script>
+</body></html>`;
+
+// =================== PAGE 3 ===================
+const PAGE3 = `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نعمة - البيانات المسترجعة</title>
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<header class="main-header"><div class="header-container">
+  <div class="header-right"><div class="logo-fallback" style="display:flex"><div class="logo-icon">🌿</div><span class="logo-text">نعمة</span></div></div>
+  <div class="header-left"><div class="user-info"><span class="user-name">محمد العتيبي</span><div class="user-avatar"><i class="fas fa-user"></i></div></div><div class="lang-switch">EN</div></div>
+</div></header>
+<div class="breadcrumb-bar"><div class="container">
+  <span class="breadcrumb-item"><a href="page1.html">الرئيسية</a></span>
+  <span class="breadcrumb-sep"><i class="fas fa-chevron-left"></i></span>
+  <span class="breadcrumb-item active">تغيير نشاط لمنشأة بيطرية</span>
+</div></div>
+<main class="main-content"><div class="container">
+  <div class="service-strip"><div class="service-strip-icon"><i class="fas fa-exchange-alt"></i></div><div><h2 class="service-strip-title">تغيير نشاط لمنشأة بيطرية</h2><span class="service-strip-sub">وزارة البيئة والمياه والزراعة</span></div></div>
+  <div class="wizard-layout">
+    <aside class="progress-sidebar">
+      <div class="progress-title">خطوات الطلب</div>
+      <ul class="steps-list">
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 1</span><span class="step-name">الصفحة الرئيسية</span></div></li>
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 2</span><span class="step-name">قيود الاستخدام</span></div></li>
+        <li class="step-item active"><div class="step-num">3</div><div class="step-info"><span class="step-label">الخطوة 3</span><span class="step-name">البيانات المسترجعة</span></div></li>
+        <li class="step-item"><div class="step-num">4</div><div class="step-info"><span class="step-label">الخطوة 4</span><span class="step-name">بيانات الطلب</span></div></li>
+        <li class="step-item"><div class="step-num">5</div><div class="step-info"><span class="step-label">الخطوة 5</span><span class="step-name">المرفقات</span></div></li>
+        <li class="step-item"><div class="step-num">6</div><div class="step-info"><span class="step-label">الخطوة 6</span><span class="step-name">مراجعة الطلب</span></div></li>
+      </ul>
+      <div class="progress-bar-wrap"><div class="progress-bar-label"><span>التقدم</span><span>33%</span></div><div class="progress-bar-track"><div class="progress-bar-fill" style="width:33%"></div></div></div>
+    </aside>
+    <div class="wizard-content">
+      <div class="wizard-header"><div class="wizard-header-icon"><i class="fas fa-database"></i></div><div class="wizard-header-title"><h2>البيانات المسترجعة</h2><p>البيانات التالية تم استرجاعها تلقائياً من سجلات الوزارة</p></div></div>
+      <div class="wizard-body">
+        <div class="alert-box alert-success"><div class="alert-icon"><i class="fas fa-check-circle"></i></div><div class="alert-text"><strong>تم استرجاع البيانات بنجاح</strong>تم استرجاع بياناتك من أنظمة الوزارة. هذه البيانات للاطلاع فقط ولا يمكن تعديلها.</div></div>
+        <div class="data-card">
+          <div class="data-card-header"><div class="data-card-icon"><i class="fas fa-user-tie"></i></div><div class="data-card-title">بيانات المالك / المفوّض</div></div>
+          <div class="data-grid">
+            <div class="data-field"><span class="data-field-label">اسم المالك</span><span class="data-field-value">محمد بن سعد العتيبي</span></div>
+            <div class="data-field"><span class="data-field-label">رقم الهوية الوطنية</span><span class="data-field-value">1057842369</span></div>
+            <div class="data-field"><span class="data-field-label">رقم الجوال</span><span class="data-field-value">0501234567</span></div>
+            <div class="data-field"><span class="data-field-label">البريد الإلكتروني</span><span class="data-field-value">m.alotaibi@email.com</span></div>
+            <div class="data-field"><span class="data-field-label">الجنسية</span><span class="data-field-value">سعودي</span></div>
+            <div class="data-field"><span class="data-field-label">صفة مقدم الطلب</span><span class="data-field-value">مالك المنشأة</span></div>
+          </div>
+        </div>
+        <div class="data-card">
+          <div class="data-card-header"><div class="data-card-icon"><i class="fas fa-clinic-medical"></i></div><div class="data-card-title">بيانات المنشأة</div></div>
+          <div class="data-grid">
+            <div class="data-field"><span class="data-field-label">اسم المنشأة</span><span class="data-field-value">صيدلية الرعاية البيطرية</span></div>
+            <div class="data-field"><span class="data-field-label">رقم السجل التجاري</span><span class="data-field-value">1010123456</span></div>
+            <div class="data-field"><span class="data-field-label">النشاط الحالي</span><span class="data-field-value">صيدلية بيطرية</span></div>
+            <div class="data-field"><span class="data-field-label">رقم الترخيص التشغيلي</span><span class="data-field-value">24/03/007001/065</span></div>
+            <div class="data-field"><span class="data-field-label">تاريخ الإصدار</span><span class="data-field-value">2025-10-20 | 1447-04-28</span></div>
+            <div class="data-field"><span class="data-field-label">تاريخ الانتهاء</span><span class="data-field-value">2027-04-20 | 1448-11-13</span></div>
+            <div class="data-field"><span class="data-field-label">رخصة بلدي</span><span class="data-field-value">1254854856</span></div>
+            <div class="data-field"><span class="data-field-label">المنطقة</span><span class="data-field-value">الرياض</span></div>
+            <div class="data-field"><span class="data-field-label">المحافظة</span><span class="data-field-value">الخرج</span></div>
+            <div class="data-field"><span class="data-field-label">المركز</span><span class="data-field-value">الدلم</span></div>
+            <div class="data-field"><span class="data-field-label">الحي حسب ترخيص البلدية</span><span class="data-field-value">الفيصلية</span></div>
+            <div class="data-field"><span class="data-field-label">الشارع</span><span class="data-field-value">القادسية</span></div>
+            <div class="data-field"><span class="data-field-label">المساحة الإجمالية</span><span class="data-field-value">201 م²</span></div>
+            <div class="data-field"><span class="data-field-label">الإحداثيات</span><span class="data-field-value">24.25</span></div>
+            <div class="data-field"><span class="data-field-label">حالة الترخيص</span><span class="data-field-value"><span class="status-badge success"><i class="fas fa-circle" style="font-size:8px"></i> ساري</span></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="wizard-footer">
+        <a href="page2.html" class="btn-secondary"><i class="fas fa-arrow-right"></i> السابق</a>
+        <a href="page4.html" class="btn-primary">التالي <i class="fas fa-arrow-left"></i></a>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="main-footer"><div class="container"><div class="footer-content"><p>© 2025 منصة نعمة - وزارة البيئة والمياه والزراعة. جميع الحقوق محفوظة.</p><div class="footer-links"><a href="#">سياسة الخصوصية</a><a href="#">شروط الاستخدام</a><a href="#">تواصل معنا</a></div></div></div></footer>
+</body></html>`;
+
+// =================== PAGE 4 ===================
+const PAGE4 = `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نعمة - بيانات الطلب</title>
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<header class="main-header"><div class="header-container">
+  <div class="header-right"><div class="logo-fallback" style="display:flex"><div class="logo-icon">🌿</div><span class="logo-text">نعمة</span></div></div>
+  <div class="header-left"><div class="user-info"><span class="user-name">محمد العتيبي</span><div class="user-avatar"><i class="fas fa-user"></i></div></div><div class="lang-switch">EN</div></div>
+</div></header>
+<div class="breadcrumb-bar"><div class="container">
+  <span class="breadcrumb-item"><a href="page1.html">الرئيسية</a></span>
+  <span class="breadcrumb-sep"><i class="fas fa-chevron-left"></i></span>
+  <span class="breadcrumb-item active">تغيير نشاط لمنشأة بيطرية</span>
+</div></div>
+<main class="main-content"><div class="container">
+  <div class="service-strip"><div class="service-strip-icon"><i class="fas fa-exchange-alt"></i></div><div><h2 class="service-strip-title">تغيير نشاط لمنشأة بيطرية</h2><span class="service-strip-sub">وزارة البيئة والمياه والزراعة</span></div></div>
+  <div class="wizard-layout">
+    <aside class="progress-sidebar">
+      <div class="progress-title">خطوات الطلب</div>
+      <ul class="steps-list">
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 1</span><span class="step-name">الصفحة الرئيسية</span></div></li>
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 2</span><span class="step-name">قيود الاستخدام</span></div></li>
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 3</span><span class="step-name">البيانات المسترجعة</span></div></li>
+        <li class="step-item active"><div class="step-num">4</div><div class="step-info"><span class="step-label">الخطوة 4</span><span class="step-name">بيانات الطلب</span></div></li>
+        <li class="step-item"><div class="step-num">5</div><div class="step-info"><span class="step-label">الخطوة 5</span><span class="step-name">المرفقات</span></div></li>
+        <li class="step-item"><div class="step-num">6</div><div class="step-info"><span class="step-label">الخطوة 6</span><span class="step-name">مراجعة الطلب</span></div></li>
+      </ul>
+      <div class="progress-bar-wrap"><div class="progress-bar-label"><span>التقدم</span><span>50%</span></div><div class="progress-bar-track"><div class="progress-bar-fill" style="width:50%"></div></div></div>
+    </aside>
+    <div class="wizard-content">
+      <div class="wizard-header"><div class="wizard-header-icon"><i class="fas fa-file-alt"></i></div><div class="wizard-header-title"><h2>بيانات الطلب</h2><p>أدخل بيانات المشروع الحالي والجديد لإتمام طلب تغيير النشاط</p></div></div>
+      <div class="wizard-body">
+        <div class="subsection-header"><i class="fas fa-building"></i><h4>بيانات المشروع الحالي</h4></div>
+        <div class="form-grid" style="margin-bottom:16px">
+          <div class="form-group">
+            <label class="form-label">النشاط الحالي <span class="required">*</span></label>
+            <select class="form-control" id="currentActivity">
+              <option value="">-- اختر النشاط --</option>
+              <option value="pharmacy" selected>صيدلية بيطرية</option>
+              <option value="clinic">عيادة بيطرية</option>
+              <option value="falcon">مركز العناية بالصقور</option>
+              <option value="artificial">مركز التلقيح الصناعي</option>
+              <option value="petcare">محلات العناية غير البيطرية بالحيوانات الأليفة</option>
+              <option value="hospital">مستشفى بيطري</option>
+              <option value="hotel">مركز الإيواء (الخدمات الفندقية)</option>
+              <option value="birds">مركز توزيع الطيور الحية</option>
+              <option value="lab">مختبرات بيطرية</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">رقم الترخيص التشغيلي <span class="required">*</span></label>
+            <select class="form-control" id="licenseNum" onchange="onLicenseChange()">
+              <option value="">-- اختر رقم الترخيص --</option>
+              <option value="lic1">24/03/007001/065</option>
+              <option value="lic2">25/01/007001/490</option>
+              <option value="lic3">24/01/007001/251</option>
+            </select>
+          </div>
+        </div>
+        <div id="currentProjectFields" style="display:none">
+          <div class="form-grid" style="margin-bottom:0">
+            <div class="form-group"><label class="form-label">تاريخ الإصدار</label><div class="readonly-field"><i class="fas fa-calendar-alt" style="color:var(--primary);margin-left:8px"></i> 2025-10-20 | 1447-04-28</div></div>
+            <div class="form-group"><label class="form-label">تاريخ الانتهاء</label><div class="readonly-field"><i class="fas fa-calendar-times" style="color:#e53935;margin-left:8px"></i> 2027-04-20 | 1448-11-13</div></div>
+            <div class="form-group"><label class="form-label">رخصة بلدي</label><div class="readonly-field">1254854856</div></div>
+            <div class="form-group"><label class="form-label">المنطقة</label><div class="readonly-field">الرياض</div></div>
+            <div class="form-group"><label class="form-label">المحافظة</label><div class="readonly-field">الخرج</div></div>
+            <div class="form-group"><label class="form-label">المركز</label><div class="readonly-field">الدلم</div></div>
+            <div class="form-group"><label class="form-label">الحي حسب ترخيص البلدية</label><div class="readonly-field">الفيصلية</div></div>
+            <div class="form-group"><label class="form-label">الشارع</label><div class="readonly-field">القادسية</div></div>
+            <div class="form-group"><label class="form-label">المساحة الإجمالية</label><div class="readonly-field">201 م²</div></div>
+            <div class="form-group"><label class="form-label">الإحداثيات</label><div class="readonly-field">24.25</div></div>
+          </div>
+        </div>
+        <div style="height:1px;background:var(--border);margin:32px 0"></div>
+        <div class="subsection-header"><i class="fas fa-arrows-alt-h"></i><h4>بيانات المشروع الجديد</h4></div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">النشاط المراد الانتقال إليه <span class="required">*</span></label>
+            <select class="form-control" id="newActivity" onchange="onNewActivityChange()">
+              <option value="">-- اختر النشاط الجديد --</option>
+              <option value="clinic">عيادة بيطرية</option>
+              <option value="falcon">مركز العناية بالصقور</option>
+              <option value="artificial">مركز التلقيح الصناعي</option>
+              <option value="petcare">محلات العناية غير البيطرية بالحيوانات الأليفة</option>
+              <option value="hospital">مستشفى بيطري</option>
+              <option value="hotel">مركز الإيواء (الخدمات الفندقية)</option>
+              <option value="birds">مركز توزيع الطيور الحية</option>
+              <option value="lab">مختبرات بيطرية</option>
+            </select>
+          </div>
+          <div class="form-group" id="facilityTypeGroup" style="display:none">
+            <label class="form-label">نوع المنشأة <span class="required">*</span></label>
+            <select class="form-control" id="facilityType"><option value="">-- اختر نوع المنشأة --</option></select>
+          </div>
+        </div>
+      </div>
+      <div class="wizard-footer">
+        <a href="page3.html" class="btn-secondary"><i class="fas fa-arrow-right"></i> السابق</a>
+        <a href="page5.html" class="btn-primary">التالي <i class="fas fa-arrow-left"></i></a>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="main-footer"><div class="container"><div class="footer-content"><p>© 2025 منصة نعمة - وزارة البيئة والمياه والزراعة. جميع الحقوق محفوظة.</p><div class="footer-links"><a href="#">سياسة الخصوصية</a><a href="#">شروط الاستخدام</a><a href="#">تواصل معنا</a></div></div></div></footer>
+<script>
+function onLicenseChange(){var v=document.getElementById('licenseNum').value;document.getElementById('currentProjectFields').style.display=v?'block':'none';}
+function onNewActivityChange(){
+  var v=document.getElementById('newActivity').value;
+  var fg=document.getElementById('facilityTypeGroup');
+  var fs=document.getElementById('facilityType');
+  fs.innerHTML='<option value="">-- اختر نوع المنشأة --</option>';
+  if(['clinic','hospital','lab'].includes(v)){
+    fg.style.cssText='display:flex;flex-direction:column;gap:8px';
+    var opts=v==='hospital'?['المستشفى البيطري الشامل','المستشفى البيطري التخصصي للحيوانات الكبيرة (الإبل أو الخيل أو الأبقار)']:v==='clinic'?['مركز الرعاية البيطرية الأولية','عيادة الرعاية البيطرية الأولية','عيادة الحيوانات الأليفة والطيور','العيادة البيطرية المتنقلة','العيادة البيطرية الشاملة','العيادة البيطرية التخصصية']:['مختبر أول','مختبر ثاني','مختبر ثالث'];
+    opts.forEach(function(o){var el=document.createElement('option');el.value=o;el.textContent=o;fs.appendChild(el);});
+  } else {fg.style.display='none';}
+}
+<\/script>
+</body></html>`;
+
+// =================== PAGE 5 ===================
+const PAGE5 = `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نعمة - المرفقات</title>
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1000;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal-box{background:white;border-radius:16px;width:90%;max-width:600px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #dde2ee;background:#f5f7fb}
+.modal-title{font-size:15px;font-weight:700;color:#1a1a2e}
+.modal-close{width:34px;height:34px;border-radius:50%;border:none;background:#eee;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px}
+.modal-body{padding:32px;display:flex;align-items:center;justify-content:center;background:#f9f9f9}
+.doc-preview{background:white;border-radius:12px;padding:32px;width:100%;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.08)}
+.modal-footer{padding:16px 24px;border-top:1px solid #dde2ee;display:flex;gap:12px}
+</style>
+</head>
+<body>
+<header class="main-header"><div class="header-container">
+  <div class="header-right"><div class="logo-fallback" style="display:flex"><div class="logo-icon">🌿</div><span class="logo-text">نعمة</span></div></div>
+  <div class="header-left"><div class="user-info"><span class="user-name">محمد العتيبي</span><div class="user-avatar"><i class="fas fa-user"></i></div></div><div class="lang-switch">EN</div></div>
+</div></header>
+<div class="breadcrumb-bar"><div class="container">
+  <span class="breadcrumb-item"><a href="page1.html">الرئيسية</a></span>
+  <span class="breadcrumb-sep"><i class="fas fa-chevron-left"></i></span>
+  <span class="breadcrumb-item active">تغيير نشاط لمنشأة بيطرية</span>
+</div></div>
+<main class="main-content"><div class="container">
+  <div class="service-strip"><div class="service-strip-icon"><i class="fas fa-exchange-alt"></i></div><div><h2 class="service-strip-title">تغيير نشاط لمنشأة بيطرية</h2><span class="service-strip-sub">وزارة البيئة والمياه والزراعة</span></div></div>
+  <div class="wizard-layout">
+    <aside class="progress-sidebar">
+      <div class="progress-title">خطوات الطلب</div>
+      <ul class="steps-list">
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 1</span><span class="step-name">الصفحة الرئيسية</span></div></li>
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 2</span><span class="step-name">قيود الاستخدام</span></div></li>
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 3</span><span class="step-name">البيانات المسترجعة</span></div></li>
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 4</span><span class="step-name">بيانات الطلب</span></div></li>
+        <li class="step-item active"><div class="step-num">5</div><div class="step-info"><span class="step-label">الخطوة 5</span><span class="step-name">المرفقات</span></div></li>
+        <li class="step-item"><div class="step-num">6</div><div class="step-info"><span class="step-label">الخطوة 6</span><span class="step-name">مراجعة الطلب</span></div></li>
+      </ul>
+      <div class="progress-bar-wrap"><div class="progress-bar-label"><span>التقدم</span><span>67%</span></div><div class="progress-bar-track"><div class="progress-bar-fill" style="width:67%"></div></div></div>
+    </aside>
+    <div class="wizard-content">
+      <div class="wizard-header"><div class="wizard-header-icon"><i class="fas fa-paperclip"></i></div><div class="wizard-header-title"><h2>مرفقات الطلب</h2><p>المرفقات المطلوبة لاستكمال طلب تغيير النشاط</p></div></div>
+      <div class="wizard-body">
+        <div class="alert-box"><div class="alert-icon"><i class="fas fa-exclamation-triangle"></i></div><div class="alert-text"><strong>ملاحظة</strong>المرفق التالي تم إرفاقه مسبقاً. يمكنك استعراضه أو تنزيله.</div></div>
+        <div class="section-divider"><div class="section-divider-icon"><i class="fas fa-folder-open"></i></div><h3>مرفقات الطلب</h3><div class="section-divider-line"></div></div>
+        <div class="attachment-card">
+          <div class="attachment-header">
+            <div class="attachment-header-right"><i class="fas fa-file-alt" style="color:var(--primary);font-size:18px"></i><span>كروكي معتمد من مكتب هندسي</span><span class="required-badge">إلزامي</span></div>
+            <span class="status-badge success"><i class="fas fa-check-circle"></i> مرفق</span>
+          </div>
+          <div class="attachment-body">
+            <div class="attachment-preview">
+              <div class="attachment-thumb"><i class="fas fa-drafting-compass"></i></div>
+              <div class="attachment-info">
+                <span class="attachment-name">كروكي_المنشأة_البيطرية_معتمد.pdf</span>
+                <div class="attachment-meta"><span><i class="fas fa-weight-hanging" style="margin-left:4px"></i>2.4 MB</span><span>•</span><span>PDF</span><span>•</span><span>2025-10-15</span></div>
+                <div style="margin-top:8px"><span style="font-size:12px;color:var(--primary);background:var(--primary-bg);padding:3px 10px;border-radius:50px;font-weight:600"><i class="fas fa-stamp"></i> معتمد من مكتب النور الهندسي</span></div>
+              </div>
+            </div>
+            <div class="attachment-actions">
+              <button class="btn-icon" title="استعراض" onclick="openModal()"><i class="fas fa-eye"></i></button>
+              <button class="btn-icon" title="تنزيل" onclick="showToast('جاري تنزيل الملف...')"><i class="fas fa-download"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wizard-footer">
+        <a href="page4.html" class="btn-secondary"><i class="fas fa-arrow-right"></i> السابق</a>
+        <a href="page6.html" class="btn-primary">التالي <i class="fas fa-arrow-left"></i></a>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="main-footer"><div class="container"><div class="footer-content"><p>© 2025 منصة نعمة - وزارة البيئة والمياه والزراعة. جميع الحقوق محفوظة.</p><div class="footer-links"><a href="#">سياسة الخصوصية</a><a href="#">شروط الاستخدام</a><a href="#">تواصل معنا</a></div></div></div></footer>
+<div class="modal-overlay" id="previewModal">
+  <div class="modal-box">
+    <div class="modal-header"><div class="modal-title"><i class="fas fa-file-pdf" style="color:var(--primary);margin-left:8px"></i>كروكي معتمد من مكتب هندسي</div><button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button></div>
+    <div class="modal-body">
+      <div class="doc-preview">
+        <div style="font-size:72px;color:var(--primary);margin-bottom:16px"><i class="fas fa-drafting-compass"></i></div>
+        <div style="font-size:17px;font-weight:700;margin-bottom:6px">كروكي_المنشأة_البيطرية_معتمد.pdf</div>
+        <div style="font-size:13px;color:#888;margin-bottom:20px">PDF • 2.4 MB • 3 صفحات • 2025-10-15</div>
+        <div style="background:var(--primary-bg);border:2px dashed var(--primary);border-radius:10px;padding:16px;font-size:13px;color:var(--primary-dark);font-weight:600;margin-bottom:16px">
+          <i class="fas fa-stamp" style="margin-left:8px"></i>معتمد من: مكتب النور الهندسي<br>
+          <span style="font-size:11px;color:#888;font-weight:400">رقم الاعتماد: ENG-2025-4521</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:right;background:#f8f9fb;border-radius:10px;padding:14px;border:1px solid #dde2ee">
+          <div><div style="font-size:11px;color:#888;margin-bottom:3px">المساحة</div><div style="font-weight:700">201 م²</div></div>
+          <div><div style="font-size:11px;color:#888;margin-bottom:3px">عدد الغرف</div><div style="font-weight:700">8 غرف</div></div>
+          <div><div style="font-size:11px;color:#888;margin-bottom:3px">الطوابق</div><div style="font-weight:700">طابق واحد</div></div>
+          <div><div style="font-size:11px;color:#888;margin-bottom:3px">نوع البناء</div><div style="font-weight:700">خرساني</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-primary" onclick="showToast('جاري تنزيل الملف...');closeModal()"><i class="fas fa-download"></i> تنزيل</button>
+      <button class="btn-secondary" onclick="closeModal()">إغلاق</button>
+    </div>
+  </div>
+</div>
+<script>
+function openModal(){document.getElementById('previewModal').classList.add('open');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('previewModal').classList.remove('open');document.body.style.overflow='';}
+function showToast(msg){var t=document.createElement('div');t.style.cssText='position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#333;color:white;padding:12px 24px;border-radius:50px;font-family:Tajawal,sans-serif;font-size:14px;z-index:9999';t.textContent=msg;document.body.appendChild(t);setTimeout(function(){t.remove();},3000);}
+document.getElementById('previewModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+<\/script>
+</body></html>`;
+
+// =================== PAGE 6 ===================
+const PAGE6 = `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نعمة - مراجعة الطلب</title>
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+.submit-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center}
+.submit-modal-overlay.open{display:flex}
+.submit-modal{background:white;border-radius:20px;padding:48px 40px;max-width:460px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.25)}
+.success-icon{width:88px;height:88px;background:linear-gradient(135deg,#2e7d32,#00897b);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:38px;color:white;box-shadow:0 8px 25px rgba(46,125,50,0.35)}
+.request-num-box{background:#e8f5e9;border:1.5px solid #2e7d32;border-radius:12px;padding:16px 24px;margin-bottom:28px}
+</style>
+</head>
+<body>
+<header class="main-header"><div class="header-container">
+  <div class="header-right"><div class="logo-fallback" style="display:flex"><div class="logo-icon">🌿</div><span class="logo-text">نعمة</span></div></div>
+  <div class="header-left"><div class="user-info"><span class="user-name">محمد العتيبي</span><div class="user-avatar"><i class="fas fa-user"></i></div></div><div class="lang-switch">EN</div></div>
+</div></header>
+<div class="breadcrumb-bar"><div class="container">
+  <span class="breadcrumb-item"><a href="page1.html">الرئيسية</a></span>
+  <span class="breadcrumb-sep"><i class="fas fa-chevron-left"></i></span>
+  <span class="breadcrumb-item active">تغيير نشاط لمنشأة بيطرية</span>
+</div></div>
+<main class="main-content"><div class="container">
+  <div class="service-strip"><div class="service-strip-icon"><i class="fas fa-exchange-alt"></i></div><div><h2 class="service-strip-title">تغيير نشاط لمنشأة بيطرية</h2><span class="service-strip-sub">وزارة البيئة والمياه والزراعة</span></div></div>
+  <div class="wizard-layout">
+    <aside class="progress-sidebar">
+      <div class="progress-title">خطوات الطلب</div>
+      <ul class="steps-list">
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 1</span><span class="step-name">الصفحة الرئيسية</span></div></li>
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 2</span><span class="step-name">قيود الاستخدام</span></div></li>
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 3</span><span class="step-name">البيانات المسترجعة</span></div></li>
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 4</span><span class="step-name">بيانات الطلب</span></div></li>
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 5</span><span class="step-name">المرفقات</span></div></li>
+        <li class="step-item active"><div class="step-num">6</div><div class="step-info"><span class="step-label">الخطوة 6</span><span class="step-name">مراجعة الطلب</span></div></li>
+      </ul>
+      <div class="progress-bar-wrap"><div class="progress-bar-label"><span>التقدم</span><span>92%</span></div><div class="progress-bar-track"><div class="progress-bar-fill" style="width:92%"></div></div></div>
+    </aside>
+    <div class="wizard-content">
+      <div class="wizard-header"><div class="wizard-header-icon"><i class="fas fa-clipboard-check"></i></div><div class="wizard-header-title"><h2>مراجعة الطلب</h2><p>يرجى مراجعة جميع البيانات المدخلة قبل تقديم الطلب</p></div></div>
+      <div class="wizard-body">
+        <div class="alert-box alert-info"><div class="alert-icon"><i class="fas fa-info-circle"></i></div><div class="alert-text"><strong>مراجعة نهائية</strong>يرجى التحقق من صحة جميع البيانات أدناه. بعد تقديم الطلب لن يمكن تعديله.</div></div>
+        <div class="review-section">
+          <div class="review-section-title"><i class="fas fa-user-tie" style="color:var(--primary)"></i>بيانات المالك / المفوّض<a href="page3.html" style="font-size:12px;color:var(--primary);font-weight:600;margin-right:auto;text-decoration:none"><i class="fas fa-edit"></i> تعديل</a></div>
+          <div class="review-grid">
+            <div class="review-field"><span class="review-label">اسم المالك</span><span class="review-value">محمد بن سعد العتيبي</span></div>
+            <div class="review-field"><span class="review-label">رقم الهوية الوطنية</span><span class="review-value">1057842369</span></div>
+            <div class="review-field"><span class="review-label">رقم الجوال</span><span class="review-value">0501234567</span></div>
+            <div class="review-field"><span class="review-label">البريد الإلكتروني</span><span class="review-value">m.alotaibi@email.com</span></div>
+            <div class="review-field"><span class="review-label">الجنسية</span><span class="review-value">سعودي</span></div>
+            <div class="review-field"><span class="review-label">صفة مقدم الطلب</span><span class="review-value">مالك المنشأة</span></div>
+          </div>
+        </div>
+        <div class="review-section">
+          <div class="review-section-title"><i class="fas fa-clinic-medical" style="color:var(--primary)"></i>بيانات المنشأة<a href="page3.html" style="font-size:12px;color:var(--primary);font-weight:600;margin-right:auto;text-decoration:none"><i class="fas fa-edit"></i> تعديل</a></div>
+          <div class="review-grid">
+            <div class="review-field"><span class="review-label">اسم المنشأة</span><span class="review-value">صيدلية الرعاية البيطرية</span></div>
+            <div class="review-field"><span class="review-label">رقم السجل التجاري</span><span class="review-value">1010123456</span></div>
+            <div class="review-field"><span class="review-label">رخصة بلدي</span><span class="review-value">1254854856</span></div>
+            <div class="review-field"><span class="review-label">المنطقة</span><span class="review-value">الرياض</span></div>
+            <div class="review-field"><span class="review-label">المحافظة</span><span class="review-value">الخرج</span></div>
+            <div class="review-field"><span class="review-label">المركز</span><span class="review-value">الدلم</span></div>
+            <div class="review-field"><span class="review-label">الحي</span><span class="review-value">الفيصلية</span></div>
+            <div class="review-field"><span class="review-label">الشارع</span><span class="review-value">القادسية</span></div>
+            <div class="review-field"><span class="review-label">المساحة الإجمالية</span><span class="review-value">201 م²</span></div>
+          </div>
+        </div>
+        <div class="review-section">
+          <div class="review-section-title"><i class="fas fa-building" style="color:var(--primary)"></i>بيانات المشروع الحالي<a href="page4.html" style="font-size:12px;color:var(--primary);font-weight:600;margin-right:auto;text-decoration:none"><i class="fas fa-edit"></i> تعديل</a></div>
+          <div class="review-grid">
+            <div class="review-field"><span class="review-label">النشاط الحالي</span><span class="review-value">صيدلية بيطرية</span></div>
+            <div class="review-field"><span class="review-label">رقم الترخيص التشغيلي</span><span class="review-value">24/03/007001/065</span></div>
+            <div class="review-field"><span class="review-label">تاريخ الإصدار</span><span class="review-value">2025-10-20 | 1447-04-28</span></div>
+            <div class="review-field"><span class="review-label">تاريخ الانتهاء</span><span class="review-value">2027-04-20 | 1448-11-13</span></div>
+          </div>
+        </div>
+        <div class="review-section">
+          <div class="review-section-title"><i class="fas fa-arrows-alt-h" style="color:var(--primary)"></i>بيانات المشروع الجديد<a href="page4.html" style="font-size:12px;color:var(--primary);font-weight:600;margin-right:auto;text-decoration:none"><i class="fas fa-edit"></i> تعديل</a></div>
+          <div class="review-grid">
+            <div class="review-field"><span class="review-label">النشاط المراد الانتقال إليه</span><span class="review-value">عيادة بيطرية</span></div>
+            <div class="review-field"><span class="review-label">نوع المنشأة</span><span class="review-value">عيادة الرعاية البيطرية الأولية</span></div>
+          </div>
+        </div>
+        <div class="review-section">
+          <div class="review-section-title"><i class="fas fa-paperclip" style="color:var(--primary)"></i>المرفقات<a href="page5.html" style="font-size:12px;color:var(--primary);font-weight:600;margin-right:auto;text-decoration:none"><i class="fas fa-edit"></i> تعديل</a></div>
+          <div class="review-attachment"><div class="attachment-thumb"><i class="fas fa-drafting-compass"></i></div><div class="attachment-info"><span class="attachment-name">كروكي_المنشأة_البيطرية_معتمد.pdf</span><div class="attachment-meta"><span>كروكي معتمد من مكتب هندسي</span><span>•</span><span>2.4 MB</span></div></div><span class="status-badge success"><i class="fas fa-check-circle"></i> مرفق</span></div>
+        </div>
+        <div class="alert-box alert-success" style="margin-top:24px"><div class="alert-icon"><i class="fas fa-gavel"></i></div><div class="alert-text"><strong>إقرار وتعهد</strong>أقر بأن جميع البيانات والمعلومات المقدمة في هذا الطلب صحيحة ودقيقة، وأنني مسؤول مسؤولية كاملة عن صحتها.</div></div>
+      </div>
+      <div class="wizard-footer">
+        <a href="page5.html" class="btn-secondary"><i class="fas fa-arrow-right"></i> السابق</a>
+        <button class="btn-primary" onclick="document.getElementById('successModal').classList.add('open');document.body.style.overflow='hidden'"><i class="fas fa-paper-plane"></i> تقديم الطلب</button>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="main-footer"><div class="container"><div class="footer-content"><p>© 2025 منصة نعمة - وزارة البيئة والمياه والزراعة. جميع الحقوق محفوظة.</p><div class="footer-links"><a href="#">سياسة الخصوصية</a><a href="#">شروط الاستخدام</a><a href="#">تواصل معنا</a></div></div></div></footer>
+<div class="submit-modal-overlay" id="successModal">
+  <div class="submit-modal">
+    <div class="success-icon"><i class="fas fa-check"></i></div>
+    <div style="font-size:22px;font-weight:800;color:#1a1a2e;margin-bottom:10px">تم تقديم الطلب بنجاح!</div>
+    <div style="font-size:14px;color:#666;line-height:1.8;margin-bottom:24px">لقد تم استلام طلبك وسيتم مراجعته من قِبل الجهة المختصة.<br>سيتم إشعارك عبر البريد الإلكتروني والجوال.</div>
+    <div class="request-num-box"><div style="font-size:12px;color:#999;margin-bottom:4px;font-weight:600">رقم الطلب</div><div style="font-size:20px;font-weight:800;color:#1b5e20;letter-spacing:2px">VET-2025-084521</div></div>
+    <div style="display:flex;gap:12px;justify-content:center">
+      <a href="page1.html" class="btn-primary"><i class="fas fa-home"></i> الرئيسية</a>
+      <button class="btn-secondary" onclick="window.print()"><i class="fas fa-print"></i> طباعة</button>
+    </div>
+  </div>
+</div>
+</body></html>`;
+
+// =================== دالة التحميل الرئيسية ===================
+async function downloadAllFiles() {
+    const btn = document.getElementById('downloadBtn');
+    const progressWrap = document.getElementById('progressWrap');
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const progressPct = document.getElementById('progressPct');
+    const successMsg = document.getElementById('successMsg');
+
+    // قائمة الملفات
+    const files = [
+        { id: 'css',  name: 'styles.css',  content: STYLES_CSS, type: 'text/css' },
+        { id: 'p1',   name: 'page1.html',  content: PAGE1,       type: 'text/html' },
+        { id: 'p2',   name: 'page2.html',  content: PAGE2,       type: 'text/html' },
+        { id: 'p3',   name: 'page3.html',  content: PAGE3,       type: 'text/html' },
+        { id: 'p4',   name: 'page4.html',  content: PAGE4,       type: 'text/html' },
+        { id: 'p5',   name: 'page5.html',  content: PAGE5,       type: 'text/html' },
+        { id: 'p6',   name: 'page6.html',  content: PAGE6,       type: 'text/html' },
+    ];
+
+    // تعطيل الزر
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحميل...';
+    progressWrap.classList.add('show');
+    successMsg.classList.remove('show');
+
+    // تحميل كل ملف بتأخير بسيط
+    for (let i = 0; i < files.length; i++) {
+        const f = files[i];
+
+        // تحديث الحالة
+        document.getElementById('fs-' + f.id).textContent = '⬇️';
+        progressText.textContent = 'جاري تحميل: ' + f.name;
+
+        const pct = Math.round(((i) / files.length) * 100);
+        progressFill.style.width = pct + '%';
+        progressPct.textContent = pct + '%';
+
+        // إنشاء الملف وتحميله
+        await new Promise(resolve => setTimeout(resolve, 400));
+
+        try {
+            const blob = new Blob([f.content], { type: f.type + ';charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = f.name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+            // نجاح
+            document.getElementById('fs-' + f.id).textContent = '✅';
+            document.getElementById('fi-' + f.id).classList.add('done');
+        } catch(e) {
+            document.getElementById('fs-' + f.id).textContent = '❌';
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 300));
+    }
+
+    // اكتمال
+    progressFill.style.width = '100%';
+    progressPct.textContent = '100%';
+    progressText.textContent = '✅ تم تحميل جميع الملفات بنجاح!';
+
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-check"></i> تم التحميل! اضغط للإعادة';
+    btn.style.background = 'linear-gradient(135deg,#388e3c,#00897b)';
+    successMsg.classList.add('show');
+}
+</script>
+</body>
+</html>

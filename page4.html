@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نعمة - بيانات الطلب</title>
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* ===== VALIDATION STYLES ===== */
+.form-group { position: relative; }
+
+.form-control.error {
+    border-color: #e53935 !important;
+    box-shadow: 0 0 0 3px rgba(229,57,53,0.1) !important;
+    background: #fff8f8 !important;
+}
+
+.form-control.success {
+    border-color: #2e7d32 !important;
+    box-shadow: 0 0 0 3px rgba(46,125,50,0.1) !important;
+}
+
+/* ===== CUSTOM SELECT ===== */
+.custom-select-wrap {
+    position: relative;
+    width: 100%;
+}
+
+.custom-select-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 16px;
+    border: 1.8px solid var(--border, #dde2ee);
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 14px;
+    color: var(--text-dark, #1a1a2e);
+    transition: all 0.25s;
+    user-select: none;
+    min-height: 46px;
+}
+
+.custom-select-trigger:hover {
+    border-color: #2e7d32;
+}
+
+.custom-select-trigger.open {
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 3px rgba(46,125,50,0.12);
+    border-radius: 8px 8px 0 0;
+}
+
+.custom-select-trigger.error {
+    border-color: #e53935 !important;
+    box-shadow: 0 0 0 3px rgba(229,57,53,0.1) !important;
+    background: #fff8f8;
+}
+
+.custom-select-trigger.success {
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 3px rgba(46,125,50,0.1);
+}
+
+.custom-select-trigger.error.open {
+    box-shadow: 0 0 0 3px rgba(229,57,53,0.15) !important;
+    border-radius: 8px 8px 0 0;
+}
+
+.select-placeholder {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.select-selected-text {
+    color: var(--text-dark, #1a1a2e);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.select-arrow {
+    flex-shrink: 0;
+    margin-right: 8px;
+    color: #2e7d32;
+    font-size: 13px;
+    transition: transform 0.3s ease;
+}
+
+.custom-select-trigger.open .select-arrow {
+    transform: rotate(180deg);
+}
+
+/* ===== DROPDOWN ===== */
+.custom-select-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    background: white;
+    border: 1.8px solid #2e7d32;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    z-index: 999;
+    overflow: hidden;
+    display: none;
+    animation: dropDown 0.2s ease;
+}
+
+.custom-select-dropdown.open {
+    display: block;
+}
+
+@keyframes dropDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Search inside dropdown */
+.dropdown-search-wrap {
+    padding: 12px 14px;
+    border-bottom: 1px solid #f0f0f0;
+    background: #fafafa;
+}
+
+.dropdown-search {
+    width: 100%;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 8px 12px 8px 36px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+    background: white;
+    color: #1a1a2e;
+    direction: rtl;
+}
+
+.dropdown-search:focus {
+    border-color: #2e7d32;
+}
+
+.dropdown-search-icon {
+    position: absolute;
+    left: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    font-size: 13px;
+    pointer-events: none;
+}
+
+.dropdown-search-container {
+    position: relative;
+}
+
+/* Options list */
+.dropdown-options {
+    max-height: 220px;
+    overflow-y: auto;
+    padding: 6px 0;
+}
+
+.dropdown-options::-webkit-scrollbar { width: 5px; }
+.dropdown-options::-webkit-scrollbar-track { background: #f5f5f5; }
+.dropdown-options::-webkit-scrollbar-thumb { background: #4caf50; border-radius: 4px; }
+
+.dropdown-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 16px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    cursor: pointer;
+    transition: all 0.15s;
+    border-radius: 0;
+}
+
+.dropdown-option:hover {
+    background: #e8f5e9;
+    color: #1b5e20;
+}
+
+.dropdown-option.selected {
+    background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+    color: #1b5e20;
+    font-weight: 700;
+}
+
+.dropdown-option .opt-icon {
+    width: 28px;
+    height: 28px;
+    background: #e8f5e9;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: #2e7d32;
+    flex-shrink: 0;
+}
+
+.dropdown-option.selected .opt-icon {
+    background: #2e7d32;
+    color: white;
+}
+
+.dropdown-option .opt-check {
+    margin-right: auto;
+    color: #2e7d32;
+    font-size: 14px;
+    display: none;
+}
+
+.dropdown-option.selected .opt-check {
+    display: block;
+}
+
+.dropdown-empty {
+    padding: 20px;
+    text-align: center;
+    color: #aaa;
+    font-size: 13px;
+    display: none;
+}
+
+.dropdown-empty i {
+    display: block;
+    font-size: 28px;
+    margin-bottom: 8px;
+    color: #ddd;
+}
+
+/* ===== ERROR MESSAGE ===== */
+.field-error-msg {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+    font-size: 12.5px;
+    color: #e53935;
+    font-weight: 600;
+    animation: fadeInErr 0.2s ease;
+}
+
+.field-error-msg.show {
+    display: flex;
+}
+
+@keyframes fadeInErr {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.field-error-msg i {
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+/* ===== TOAST NOTIFICATION ===== */
+.toast-container {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.toast {
+    background: white;
+    border-radius: 14px;
+    padding: 16px 22px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    font-family: 'Tajawal', sans-serif;
+    min-width: 340px;
+    border-right: 4px solid #e53935;
+    animation: toastIn 0.35s cubic-bezier(.175,.885,.32,1.275);
+    pointer-events: auto;
+}
+
+.toast.toast-out {
+    animation: toastOut 0.3s ease forwards;
+}
+
+@keyframes toastIn {
+    from { opacity: 0; transform: translateY(-20px) scale(0.9); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes toastOut {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to   { opacity: 0; transform: translateY(-10px) scale(0.95); }
+}
+
+.toast-icon {
+    width: 40px;
+    height: 40px;
+    background: #ffebee;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #e53935;
+    flex-shrink: 0;
+}
+
+.toast-content { flex: 1; }
+
+.toast-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: #1a1a2e;
+    margin-bottom: 2px;
+}
+
+.toast-body {
+    font-size: 12.5px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 2px;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.toast-close:hover { color: #555; }
+
+/* ===== VALIDATION SUMMARY ===== */
+.validation-summary {
+    background: #fff3f3;
+    border: 1.5px solid #ef9a9a;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    display: none;
+    animation: fadeInErr 0.3s ease;
+}
+
+.validation-summary.show { display: block; }
+
+.validation-summary-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #c62828;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.validation-summary ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.validation-summary ul li {
+    font-size: 13px;
+    color: #c62828;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.validation-summary ul li i {
+    font-size: 11px;
+    color: #e53935;
+}
+
+/* ===== FIELD SUCCESS ICON ===== */
+.field-success-icon {
+    position: absolute;
+    left: 42px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #2e7d32;
+    font-size: 14px;
+    display: none;
+    pointer-events: none;
+}
+
+.custom-select-wrap.has-value .field-success-icon {
+    display: block;
+}
+
+/* Disabled select style */
+.custom-select-trigger.disabled {
+    background: #f8f9fb;
+    color: #aaa;
+    cursor: not-allowed;
+    border-color: #e8ecf0;
+}
+
+.custom-select-trigger.disabled:hover {
+    border-color: #e8ecf0;
+}
+</style>
+</head>
+<body>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<header class="main-header">
+  <div class="header-container">
+    <div class="header-right">
+      <div class="logo-fallback" style="display:flex">
+        <div class="logo-icon">🌿</div>
+        <span class="logo-text">نعمة</span>
+      </div>
+    </div>
+    <div class="header-left">
+      <div class="user-info">
+        <span class="user-name">محمد العتيبي</span>
+        <div class="user-avatar"><i class="fas fa-user"></i></div>
+      </div>
+      <div class="lang-switch">EN</div>
+    </div>
+  </div>
+</header>
+
+<div class="breadcrumb-bar">
+  <div class="container">
+    <span class="breadcrumb-item"><a href="page1.html">الرئيسية</a></span>
+    <span class="breadcrumb-sep"><i class="fas fa-chevron-left"></i></span>
+    <span class="breadcrumb-item active">تغيير نشاط لمنشأة بيطرية</span>
+  </div>
+</div>
+
+<main class="main-content">
+  <div class="container">
+    <div class="service-strip">
+      <div class="service-strip-icon"><i class="fas fa-exchange-alt"></i></div>
+      <div>
+        <h2 class="service-strip-title">تغيير نشاط لمنشأة بيطرية</h2>
+        <span class="service-strip-sub">وزارة البيئة والمياه والزراعة</span>
+      </div>
+    </div>
+
+    <div class="wizard-layout">
+      <!-- Sidebar -->
+      <aside class="progress-sidebar">
+        <div class="progress-title">خطوات الطلب</div>
+        <ul class="steps-list">
+          <li class="step-item completed">
+            <div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div>
+            <div class="step-info"><span class="step-label">الخطوة 1</span><span class="step-name">الصفحة الرئيسية</span></div>
+          </li>
+          <li class="step-item completed">
+            <div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div>
+            <div class="step-info"><span class="step-label">الخطوة 2</span><span class="step-name">قيود الاستخدام</span></div>
+          </li>
+          <li class="step-item completed">
+            <div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div>
+            <div class="step-info"><span class="step-label">الخطوة 3</span><span class="step-name">البيانات المسترجعة</span></div>
+          </li>
+          <li class="step-item active">
+            <div class="step-num">4</div>
+            <div class="step-info"><span class="step-label">الخطوة 4</span><span class="step-name">بيانات الطلب</span></div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">5</div>
+            <div class="step-info"><span class="step-label">الخطوة 5</span><span class="step-name">المرفقات</span></div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">6</div>
+            <div class="step-info"><span class="step-label">الخطوة 6</span><span class="step-name">مراجعة الطلب</span></div>
+          </li>
+        </ul>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-label"><span>التقدم</span><span>50%</span></div>
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" style="width:50%"></div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <div class="wizard-content">
+        <div class="wizard-header">
+          <div class="wizard-header-icon"><i class="fas fa-file-alt"></i></div>
+          <div class="wizard-header-title">
+            <h2>بيانات الطلب</h2>
+            <p>أدخل بيانات المشروع الحالي والجديد لإتمام طلب تغيير النشاط</p>
+          </div>
+        </div>
+
+        <div class="wizard-body">
+
+          <!-- Validation Summary -->
+          <div class="validation-summary" id="validationSummary">
+            <div class="validation-summary-title">
+              <i class="fas fa-exclamation-circle"></i>
+              يرجى استكمال الحقول المطلوبة التالية:
+            </div>
+            <ul id="validationList"></ul>
+          </div>
+
+          <!-- ===== بيانات المشروع الحالي ===== -->
+          <div class="subsection-header">
+            <i class="fas fa-building"></i>
+            <h4>بيانات المشروع الحالي</h4>
+          </div>
+
+          <div class="form-grid" style="margin-bottom:16px">
+
+            <!-- النشاط الحالي -->
+            <div class="form-group" id="fg-currentActivity">
+              <label class="form-label">
+                النشاط الحالي
+                <span class="required" style="color:#e53935;font-size:16px">*</span>
+              </label>
+              <div class="custom-select-wrap" id="sw-currentActivity">
+                <div class="custom-select-trigger" id="st-currentActivity"
+                     onclick="toggleSelect('currentActivity')">
+                  <span class="select-placeholder" id="sv-currentActivity">-- اختر النشاط --</span>
+                  <i class="fas fa-chevron-down select-arrow"></i>
+                </div>
+                <div class="custom-select-dropdown" id="sd-currentActivity">
+                  <div class="dropdown-search-wrap">
+                    <div class="dropdown-search-container">
+                      <input type="text" class="dropdown-search"
+                             placeholder="ابحث عن النشاط..."
+                             oninput="filterOptions('currentActivity', this.value)">
+                      <i class="fas fa-search dropdown-search-icon"></i>
+                    </div>
+                  </div>
+                  <div class="dropdown-options" id="do-currentActivity">
+                    <div class="dropdown-option" onclick="selectOption('currentActivity','pharmacy','صيدلية بيطرية','fa-pills')">
+                      <div class="opt-icon"><i class="fas fa-pills"></i></div>
+                      <span>صيدلية بيطرية</span>
+                      <i class="fas fa-check opt-check"></i>
+                    </div>
+                    <div class="dropdown-option" onclick="selectOption('currentActivity','clinic','عيادة بيطرية','fa-stethoscope')">
+                      <div class="opt-icon"><i class="fas fa-stethoscope"></i></div>
+                      <span>عيادة بيطرية</span>
+                      <i class="fas fa-check opt-check"></i>
+                    </div>
+                    <div class="dropdown-option" onclick="selectOption('currentActivity','falcon','مركز العناية بالصقور','fa-crow')">
+                      <div class="opt-icon"><i class="fas fa-crow"></i></div>
+                      <span>مركز العناية بالصقور</span>
+                      <i class="fas fa-check opt-check"></i>
+                    </div>
+                    <div class="dropdown-option" onclick="selectOption('currentActivity','artificial','مركز التلقيح الصناعي','fa-dna')">
+                      <div class="opt-icon"><i class="fas fa-dna"></i></div>
+                      <span>مركز التلقيح الصناعي</span>
+                      <i class="fas fa-check opt-check"></i>
+                    </div>
+                    <div class="dropdown-option" onclick="selectOption('currentActivity','petcare','محلات العناية غير البيطرية بالحيوانات الأليفة','fa-paw')">
+                      <div class="opt-icon"><i class="fas fa-paw"></i></div>
+                      <span>محلات العناية غير البيطرية بالحيوانات الأليفة</span>
+                      <i class="fas fa-check opt-check"></i>
+                    </div>
+                    <div class="dropdown-option" onclick="selectOption('currentActivity','hospital','مستشفى بيطري','fa-hospital')">
+                      <div class="opt-icon"><i class="fas fa-hospital"></i></div>
+                      <span>مستشفى بيطري</span>
+                      <i class="fas fa-check opt-check"></i>
+                    </div>
+                    <div class="dropdown-option" onclick="selectOption('currentActivity','hotel','مركز الإيواء (الخدمات الفندقية)','fa-hotel')">
+                      <div class="opt-icon"><i class="fas fa-hotel"></i></div>
+                      <span>مركز الإيواء (الخدمات الفندقية)</span>
+                      <i class="fas fa-check opt-check"></i>
+                    </div>
+                    <div class="dropdown-option" onclick="selectOption('currentActivity','birds','مركز توزيع الطيور الحية','fa-feather')">
+                      <div class="opt-icon"><i class="fas fa-feather"></i></div>
+                      <span>مركز توزيع الطيور الحية</span>
+                      <i class="fas fa-check opt-check"></i>
+                    </div>
+                    <div class="dropdown-option" onclick="selectOption('currentActivity','lab','مختبرات بيطرية','fa-flask')">
+                      <div class="opt-icon"><i class="fas fa-flask"></i></div>
+                      <span>مختبرات بيطرية</span>
+                      <i class="fas fa-check opt-check"></i>
+                    </div>
+                  </div>
+                  <div class="dropdown-empty" id="de-currentActivity">
+                    <i class="fas fa-search"></i>
+                    لا توجد نتائج مطابقة
+                  </div>
+                </div>
+              </div>
+              <div class="field-error-msg" id="err-currentActivity">
+                <i class="fas fa-exclamation-circle"></i>
+                يرجى اختيار النشاط الحالي
+              </div>
+            </div>
+
+            <!-- رقم الترخيص التشغيلي -->
+            <div class="form-group" id="fg-licenseNum">
+              <label class="form-label">
+                رقم الترخيص التشغيلي
+                <span class="required" style="color:#e53935;font-size:16px">*</span>
+              </label>
+              <div class="custom-select-wrap" id="sw-licenseNum">
+                <div class="custom-select-trigger" id="st-licenseNum"
+                     onclick="toggleSelect('licenseNum')">
+                  <span class="select-placeholder" id="sv-licenseNum">-- اختر رقم الترخيص --</span>
+                  <i class="fas fa-chevron-down select-arrow"></i>
+                </div>
+                <div class="custom-select-dropdown" id="sd-licenseNum">
+                  <div class="dropdown-options" id="do-licenseNum">
+                    <div class="dropdown-option" onclick="selectOption('licenseNum','lic1','24/03/007001/065','fa-id-card')">
+                      <div class="opt-icon"><i class="fas fa-id-card"></i></div>
+                      <div>
+                        <div style="font-weight:700;font-size:14px">24/03/007001/065</div>
+                        <div style="font-size:11px;color:#888">صيدلية الرعاية البيطرية • الرياض</div>
+                      </div>
+                      <i class="fas fa-check opt-check"></i>
+                    </div>
+                    <div class="dropdown-option" onclick="selectOption('licenseNum','lic2','25/01/007001/490','fa-id-card')">
+                      <div class="opt-icon"><i class="fas fa-id-card"></i></div>
+                      <div>
+                        <div style="font-weight:700;font-size:14px">25/01/007001/490</div>
+                        <div style="font-size:11px;color:#888">عيادة الخرج • الخرج</div>
+                      </div>
+                      <i class="fas fa-check opt-check"></i>
+                    </div>
+                    <div class="dropdown-option" onclick="selectOption('licenseNum','lic3','24/01/007001/251','fa-id-card')">
+                      <div class="opt-icon"><i class="fas fa-id-card"></i></div>
+                      <div>
+                        <div style="font-weight:700;font-size:14px">24/01/007001/251</div>
+                        <div style="font-size:11px;color:#888">مركز الدلم • الدلم</div>
+                      </div>
+                      <i class="fas fa-check opt-check"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="field-error-msg" id="err-licenseNum">
+                <i class="fas fa-exclamation-circle"></i>
+                يرجى اختيار رقم الترخيص التشغيلي
+              </div>
+            </div>
+          </div>
+
+          <!-- حقول للقراءة فقط بعد اختيار الترخيص -->
+          <div id="currentProjectFields" style="display:none">
+            <div class="form-grid" style="margin-bottom:0">
+              <div class="form-group">
+                <label class="form-label">تاريخ الإصدار</label>
+                <div class="readonly-field"><i class="fas fa-calendar-alt" style="color:#2e7d32;margin-left:8px"></i> 2025-10-20 | 1447-04-28</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">تاريخ الانتهاء</label>
+                <div class="readonly-field"><i class="fas fa-calendar-times" style="color:#e53935;margin-left:8px"></i> 2027-04-20 | 1448-11-13</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">رخصة بلدي</label>
+                <div class="readonly-field">1254854856</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">المنطقة</label>
+                <div class="readonly-field">الرياض</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">المحافظة</label>
+                <div class="readonly-field">الخرج</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">المركز</label>
+                <div class="readonly-field">الدلم</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">الحي حسب ترخيص البلدية</label>
+                <div class="readonly-field">الفيصلية</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">الشارع</label>
+                <div class="readonly-field">القادسية</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">المساحة الإجمالية</label>
+                <div class="readonly-field">201 م²</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">الإحداثيات</label>
+                <div class="readonly-field">24.25</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div style="height:1px;background:#dde2ee;margin:32px 0"></div>
+
+          <!-- ===== بيانات المشروع الجديد ===== -->
+          <div class="subsection-header">
+            <i class="fas fa-arrows-alt-h"></i>
+            <h4>بيانات المشروع الجديد</h4>
+          </div>
+
+          <div class="form-grid">
+
+            <!-- النشاط المراد الانتقال إليه -->
+            <div class="form-group" id="fg-newActivity">
+              <label class="form-label">
+                النشاط المراد الانتقال إليه
+                <span class="required" style="color:#e53935;font-size:16px">*</span>
+              </label>
+              <div class="custom-select-wrap" id="sw-newActivity">
+                <div class="custom-select-trigger" id="st-newActivity"
+                     onclick="toggleSelect('newActivity')">
+                  <span class="select-placeholder" id="sv-newActivity">-- اختر النشاط الجديد --</span>
+                  <i class="fas fa-chevron-down select-arrow"></i>
+                </div>
+                <div class="custom-select-dropdown" id="sd-newActivity">
+                  <div class="dropdown-search-wrap">
+                    <div class="dropdown-search-container">
+                      <input type="text" class="dropdown-search"
+                             placeholder="ابحث عن النشاط..."
+                             oninput="filterOptions('newActivity', this.value)">
+                      <i class="fas fa-search dropdown-search-icon"></i>
+                    </div>
+                  </div>
+                  <div class="dropdown-options" id="do-newActivity">
+                    <!-- سيتم ملؤها ديناميكياً -->
+                  </div>
+                  <div class="dropdown-empty" id="de-newActivity">
+                    <i class="fas fa-search"></i>
+                    لا توجد نتائج مطابقة
+                  </div>
+                </div>
+              </div>
+              <div class="field-error-msg" id="err-newActivity">
+                <i class="fas fa-exclamation-circle"></i>
+                يرجى اختيار النشاط المراد الانتقال إليه
+              </div>
+            </div>
+
+            <!-- نوع المنشأة -->
+            <div class="form-group" id="fg-facilityType" style="display:none">
+              <label class="form-label">
+                نوع المنشأة
+                <span class="required" style="color:#e53935;font-size:16px">*</span>
+              </label>
+              <div class="custom-select-wrap" id="sw-facilityType">
+                <div class="custom-select-trigger" id="st-facilityType"
+                     onclick="toggleSelect('facilityType')">
+                  <span class="select-placeholder" id="sv-facilityType">-- اختر نوع المنشأة --</span>
+                  <i class="fas fa-chevron-down select-arrow"></i>
+                </div>
+                <div class="custom-select-dropdown" id="sd-facilityType">
+                  <div class="dropdown-options" id="do-facilityType"></div>
+                </div>
+              </div>
+              <div class="field-error-msg" id="err-facilityType">
+                <i class="fas fa-exclamation-circle"></i>
+                يرجى اختيار نوع المنشأة
+              </div>
+            </div>
+
+          </div>
+        </div><!-- end wizard-body -->
+
+        <div class="wizard-footer">
+          <a href="page3.html" class="btn-secondary">
+            <i class="fas fa-arrow-right"></i> السابق
+          </a>
+          <button class="btn-primary" onclick="validateAndNext()">
+            التالي <i class="fas fa-arrow-left"></i>
+          </button>
+        </div>
+      </div><!-- end wizard-content -->
+
+    </div><!-- end wizard-layout -->
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <div class="footer-content">
+      <p>© 2025 منصة نعمة - وزارة البيئة والمياه والزراعة. جميع الحقوق محفوظة.</p>
+      <div class="footer-links">
+        <a href="#">سياسة الخصوصية</a>
+        <a href="#">شروط الاستخدام</a>
+        <a href="#">تواصل معنا</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ==================== STATE ====================
+const state = {
+  currentActivity: { value: '', label: '' },
+  licenseNum:      { value: '', label: '' },
+  newActivity:     { value: '', label: '' },
+  facilityType:    { value: '', label: '' },
+  needsFacilityType: false
+};
+
+// ==================== ALL ACTIVITIES ====================
+const allActivities = [
+  { value:'pharmacy',  label:'صيدلية بيطرية',                                     icon:'fa-pills'      },
+  { value:'clinic',    label:'عيادة بيطرية',                                       icon:'fa-stethoscope'},
+  { value:'falcon',    label:'مركز العناية بالصقور',                              icon:'fa-crow'       },
+  { value:'artificial',label:'مركز التلقيح الصناعي',                              icon:'fa-dna'        },
+  { value:'petcare',   label:'محلات العناية غير البيطرية بالحيوانات الأليفة',    icon:'fa-paw'        },
+  { value:'hospital',  label:'مستشفى بيطري',                                       icon:'fa-hospital'   },
+  { value:'hotel',     label:'مركز الإيواء (الخدمات الفندقية)',                   icon:'fa-hotel'      },
+  { value:'birds',     label:'مركز توزيع الطيور الحية',                           icon:'fa-feather'    },
+  { value:'lab',       label:'مختبرات بيطرية',                                     icon:'fa-flask'      }
+];
+
+const facilityTypeOptions = {
+  hospital: [
+    'المستشفى البيطري الشامل',
+    'المستشفى البيطري التخصصي للحيوانات الكبيرة (الإبل أو الخيل أو الأبقار)'
+  ],
+  clinic: [
+    'مركز الرعاية البيطرية الأولية',
+    'عيادة الرعاية البيطرية الأولية',
+    'عيادة الحيوانات الأليفة والطيور',
+    'العيادة البيطرية المتنقلة',
+    'العيادة البيطرية الشاملة',
+    'العيادة البيطرية التخصصية'
+  ],
+  lab: ['مختبر أول', 'مختبر ثاني', 'مختبر ثالث']
+};
+
+// ==================== TOGGLE SELECT ====================
+function toggleSelect(id) {
+  const trigger   = document.getElementById('st-' + id);
+  const dropdown  = document.getElementById('sd-' + id);
+  const isOpen    = dropdown.classList.contains('open');
+
+  // Close all
+  closeAllSelects();
+
+  if (!isOpen) {
+    trigger.classList.add('open');
+    dropdown.classList.add('open');
+
+    // Focus search if exists
+    const search = dropdown.querySelector('.dropdown-search');
+    if (search) setTimeout(() => search.focus(), 50);
+  }
+}
+
+function closeAllSelects() {
+  document.querySelectorAll('.custom-select-trigger').forEach(t => t.classList.remove('open'));
+  document.querySelectorAll('.custom-select-dropdown').forEach(d => d.classList.remove('open'));
+}
+
+// Close on outside click
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.custom-select-wrap')) {
+    closeAllSelects();
+  }
+});
+
+// ==================== SELECT OPTION ====================
+function selectOption(selectId, value, label, icon) {
+  state[selectId] = { value, label };
+
+  // Update trigger display
+  const sv = document.getElementById('sv-' + selectId);
+  sv.className = 'select-selected-text';
+  sv.textContent = label;
+
+  // Mark trigger as success
+  const trigger = document.getElementById('st-' + selectId);
+  trigger.classList.remove('error');
+  trigger.classList.add('success');
+
+  // Mark selected option
+  const options = document.querySelectorAll('#do-' + selectId + ' .dropdown-option');
+  options.forEach(opt => opt.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+
+  // Clear error
+  clearError(selectId);
+
+  // Close dropdown
+  closeAllSelects();
+
+  // Trigger side effects
+  if (selectId === 'currentActivity') {
+    onCurrentActivityChange(value);
+  }
+  if (selectId === 'licenseNum') {
+    onLicenseChange(value);
+  }
+  if (selectId === 'newActivity') {
+    onNewActivityChange(value);
+  }
+}
+
+// ==================== FILTER OPTIONS ====================
+function filterOptions(selectId, query) {
+  const options  = document.querySelectorAll('#do-' + selectId + ' .dropdown-option');
+  const emptyMsg = document.getElementById('de-' + selectId);
+  const q = query.trim().toLowerCase();
+  let found = 0;
+
+  options.forEach(opt => {
+    const text = opt.querySelector('span') ? opt.querySelector('span').textContent.toLowerCase() : opt.textContent.toLowerCase();
+    if (!q || text.includes(q)) {
+      opt.style.display = 'flex';
+      found++;
+    } else {
+      opt.style.display = 'none';
+    }
+  });
+
+  if (emptyMsg) {
+    emptyMsg.style.display = found === 0 ? 'block' : 'none';
+  }
+}
+
+// ==================== SIDE EFFECTS ====================
+function onCurrentActivityChange(value) {
+  // Reset license & downstream
+  state.licenseNum   = { value: '', label: '' };
+  state.newActivity  = { value: '', label: '' };
+  state.facilityType = { value: '', label: '' };
+
+  resetSelect('licenseNum', '-- اختر رقم الترخيص --');
+  resetSelect('newActivity', '-- اختر النشاط الجديد --');
+  resetSelect('facilityType', '-- اختر نوع المنشأة --');
+  document.getElementById('currentProjectFields').style.display = 'none';
+  document.getElementById('fg-facilityType').style.display = 'none';
+
+  // Rebuild newActivity options (exclude current, unless clinic/hospital/lab)
+  buildNewActivityOptions(value);
+}
+
+function onLicenseChange(value) {
+  if (value) {
+    document.getElementById('currentProjectFields').style.display = 'block';
+    document.getElementById('currentProjectFields').style.animation = 'dropDown 0.3s ease';
+  }
+}
+
+function onNewActivityChange(value) {
+  // Reset facility type
+  state.facilityType = { value: '', label: '' };
+  resetSelect('facilityType', '-- اختر نوع المنشأة --');
+  clearError('facilityType');
+
+  const needsType = ['clinic', 'hospital', 'lab'].includes(value);
+  const fg = document.getElementById('fg-facilityType');
+
+  if (needsType) {
+    state.needsFacilityType = true;
+    fg.style.display = 'flex';
+    fg.style.flexDirection = 'column';
+    fg.style.gap = '8px';
+    buildFacilityTypeOptions(value);
+  } else {
+    state.needsFacilityType = false;
+    fg.style.display = 'none';
+  }
+}
+
+// ==================== BUILD OPTIONS ====================
+function buildNewActivityOptions(currentVal) {
+  const container = document.getElementById('do-newActivity');
+  container.innerHTML = '';
+
+  const specialCurrent = ['clinic', 'hospital', 'lab'].includes(currentVal);
+
+  allActivities.forEach(act => {
+    // Skip current activity unless it's special
+    if (act.value === currentVal && !specialCurrent) return;
+
+    const div = document.createElement('div');
+    div.className = 'dropdown-option';
+    div.onclick = function() {
+      selectOption('newActivity', act.value, act.label, act.icon);
+    };
+
+    div.innerHTML = `
+      <div class="opt-icon"><i class="fas ${act.icon}"></i></div>
+      <span>${act.label}</span>
+      <i class="fas fa-check opt-check"></i>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function buildFacilityTypeOptions(activityVal) {
+  const container = document.getElementById('do-facilityType');
+  container.innerHTML = '';
+
+  const currentFacility = state.facilityType.value;
+  const opts = facilityTypeOptions[activityVal] || [];
+
+  opts.forEach(opt => {
+    const div = document.createElement('div');
+    div.className = 'dropdown-option' + (opt === currentFacility ? ' selected' : '');
+    div.onclick = function() {
+      selectOption('facilityType', opt, opt, 'fa-building');
+    };
+    div.innerHTML = `
+      <div class="opt-icon"><i class="fas fa-building"></i></div>
+      <span>${opt}</span>
+      <i class="fas fa-check opt-check"></i>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function resetSelect(id, placeholder) {
+  const sv = document.getElementById('sv-' + id);
+  if (sv) {
+    sv.className = 'select-placeholder';
+    sv.textContent = placeholder;
+  }
+  const trigger = document.getElementById('st-' + id);
+  if (trigger) {
+    trigger.classList.remove('error', 'success');
+  }
+  // Deselect all options
+  document.querySelectorAll('#do-' + id + ' .dropdown-option').forEach(o => o.classList.remove('selected'));
+}
+
+// ==================== VALIDATION ====================
+function showError(id, msg) {
+  const trigger = document.getElementById('st-' + id);
+  const errEl   = document.getElementById('err-' + id);
+
+  if (trigger) {
+    trigger.classList.add('error');
+    trigger.classList.remove('success');
+
+    // Shake animation
+    trigger.style.animation = 'none';
+    setTimeout(() => { trigger.style.animation = 'shake 0.4s ease'; }, 10);
+  }
+
+  if (errEl) {
+    if (msg) errEl.querySelector('i').nextSibling.textContent = ' ' + msg;
+    errEl.classList.add('show');
+  }
+}
+
+function clearError(id) {
+  const trigger = document.getElementById('st-' + id);
+  const errEl   = document.getElementById('err-' + id);
+  if (trigger) trigger.classList.remove('error');
+  if (errEl)   errEl.classList.remove('show');
+}
+
+// Shake keyframes
+const shakeStyle = document.createElement('style');
+shakeStyle.textContent = `
+@keyframes shake {
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-6px)}
+  40%{transform:translateX(6px)}
+  60%{transform:translateX(-4px)}
+  80%{transform:translateX(4px)}
+}`;
+document.head.appendChild(shakeStyle);
+
+function validateAndNext() {
+  let errors = [];
+  let hasError = false;
+
+  // 1. النشاط الحالي
+  if (!state.currentActivity.value) {
+    showError('currentActivity', 'يرجى اختيار النشاط الحالي');
+    errors.push('النشاط الحالي');
+    hasError = true;
+  } else {
+    clearError('currentActivity');
+  }
+
+  // 2. رقم الترخيص
+  if (!state.licenseNum.value) {
+    showError('licenseNum', 'يرجى اختيار رقم الترخيص التشغيلي');
+    errors.push('رقم الترخيص التشغيلي');
+    hasError = true;
+  } else {
+    clearError('licenseNum');
+  }
+
+  // 3. النشاط الجديد
+  if (!state.newActivity.value) {
+    showError('newActivity', 'يرجى اختيار النشاط المراد الانتقال إليه');
+    errors.push('النشاط المراد الانتقال إليه');
+    hasError = true;
+  } else {
+    clearError('newActivity');
+  }
+
+  // 4. نوع المنشأة (إن كان مطلوباً)
+  if (state.needsFacilityType && !state.facilityType.value) {
+    showError('facilityType', 'يرجى اختيار نوع المنشأة');
+    errors.push('نوع المنشأة');
+    hasError = true;
+  } else {
+    clearError('facilityType');
+  }
+
+  if (hasError) {
+    // Show validation summary
+    showValidationSummary(errors);
+
+    // Show toast
+    showToast(
+      'يرجى استكمال البيانات',
+      'هناك ' + errors.length + ' حقل' + (errors.length === 1 ? '' : ' حقول') + ' مطلوبة لم يتم تعبئتها.',
+      'error'
+    );
+
+    // Scroll to top of form
+    document.getElementById('validationSummary').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    return;
+  }
+
+  // Hide summary
+  hideValidationSummary();
+
+  // Navigate to next page
+  showToast('جاري التحميل', 'تم حفظ البيانات بنجاح', 'success');
+  setTimeout(() => { window.location.href = 'page5.html'; }, 800);
+}
+
+function showValidationSummary(errors) {
+  const summary = document.getElementById('validationSummary');
+  const list    = document.getElementById('validationList');
+  list.innerHTML = '';
+  errors.forEach(e => {
+    const li = document.createElement('li');
+    li.innerHTML = '<i class="fas fa-dot-circle"></i> ' + e + ' - مطلوب';
+    list.appendChild(li);
+  });
+  summary.classList.add('show');
+}
+
+function hideValidationSummary() {
+  document.getElementById('validationSummary').classList.remove('show');
+}
+
+// ==================== TOAST ====================
+function showToast(title, body, type) {
+  const container = document.getElementById('toastContainer');
+
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+
+  if (type === 'success') {
+    toast.style.borderRightColor = '#2e7d32';
+  }
+
+  const iconHtml = type === 'success'
+    ? '<div class="toast-icon" style="background:#e8f5e9;color:#2e7d32"><i class="fas fa-check-circle"></i></div>'
+    : '<div class="toast-icon"><i class="fas fa-exclamation-triangle"></i></div>';
+
+  toast.innerHTML = `
+    ${iconHtml}
+    <div class="toast-content">
+      <div class="toast-title">${title}</div>
+      <div class="toast-body">${body}</div>
+    </div>
+    <button class="toast-close" onclick="removeToast(this.parentElement)">
+      <i class="fas fa-times"></i>
+    </button>
+  `;
+
+  container.appendChild(toast);
+
+  // Auto remove
+  setTimeout(() => removeToast(toast), 4500);
+}
+
+function removeToast(toast) {
+  if (!toast || !toast.parentElement) return;
+  toast.classList.add('toast-out');
+  setTimeout(() => {
+    if (toast.parentElement) toast.parentElement.removeChild(toast);
+  }, 300);
+}
+
+// ==================== INIT ====================
+// Build initial newActivity options (empty - needs currentActivity first)
+buildNewActivityOptions('');
+</script>
+</body>
+</html>

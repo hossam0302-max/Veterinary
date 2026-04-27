@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نعمة - المرفقات</title>
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1000;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal-box{background:white;border-radius:16px;width:90%;max-width:600px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #dde2ee;background:#f5f7fb}
+.modal-title{font-size:15px;font-weight:700;color:#1a1a2e}
+.modal-close{width:34px;height:34px;border-radius:50%;border:none;background:#eee;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px}
+.modal-body{padding:32px;display:flex;align-items:center;justify-content:center;background:#f9f9f9}
+.doc-preview{background:white;border-radius:12px;padding:32px;width:100%;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.08)}
+.modal-footer{padding:16px 24px;border-top:1px solid #dde2ee;display:flex;gap:12px}
+</style>
+</head>
+<body>
+<header class="main-header"><div class="header-container">
+  <div class="header-right"><div class="logo-fallback" style="display:flex"><div class="logo-icon">🌿</div><span class="logo-text">نعمة</span></div></div>
+  <div class="header-left"><div class="user-info"><span class="user-name">محمد العتيبي</span><div class="user-avatar"><i class="fas fa-user"></i></div></div><div class="lang-switch">EN</div></div>
+</div></header>
+<div class="breadcrumb-bar"><div class="container">
+  <span class="breadcrumb-item"><a href="page1.html">الرئيسية</a></span>
+  <span class="breadcrumb-sep"><i class="fas fa-chevron-left"></i></span>
+  <span class="breadcrumb-item active">تغيير نشاط لمنشأة بيطرية</span>
+</div></div>
+<main class="main-content"><div class="container">
+  <div class="service-strip"><div class="service-strip-icon"><i class="fas fa-exchange-alt"></i></div><div><h2 class="service-strip-title">تغيير نشاط لمنشأة بيطرية</h2><span class="service-strip-sub">وزارة البيئة والمياه والزراعة</span></div></div>
+  <div class="wizard-layout">
+    <aside class="progress-sidebar">
+      <div class="progress-title">خطوات الطلب</div>
+      <ul class="steps-list">
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 1</span><span class="step-name">الصفحة الرئيسية</span></div></li>
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 2</span><span class="step-name">قيود الاستخدام</span></div></li>
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 3</span><span class="step-name">البيانات المسترجعة</span></div></li>
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 4</span><span class="step-name">بيانات الطلب</span></div></li>
+        <li class="step-item active"><div class="step-num">5</div><div class="step-info"><span class="step-label">الخطوة 5</span><span class="step-name">المرفقات</span></div></li>
+        <li class="step-item"><div class="step-num">6</div><div class="step-info"><span class="step-label">الخطوة 6</span><span class="step-name">مراجعة الطلب</span></div></li>
+      </ul>
+      <div class="progress-bar-wrap"><div class="progress-bar-label"><span>التقدم</span><span>67%</span></div><div class="progress-bar-track"><div class="progress-bar-fill" style="width:67%"></div></div></div>
+    </aside>
+    <div class="wizard-content">
+      <div class="wizard-header"><div class="wizard-header-icon"><i class="fas fa-paperclip"></i></div><div class="wizard-header-title"><h2>مرفقات الطلب</h2><p>المرفقات المطلوبة لاستكمال طلب تغيير النشاط</p></div></div>
+      <div class="wizard-body">
+        <div class="alert-box"><div class="alert-icon"><i class="fas fa-exclamation-triangle"></i></div><div class="alert-text"><strong>ملاحظة</strong>المرفق التالي تم إرفاقه مسبقاً. يمكنك استعراضه أو تنزيله.</div></div>
+        <div class="section-divider"><div class="section-divider-icon"><i class="fas fa-folder-open"></i></div><h3>مرفقات الطلب</h3><div class="section-divider-line"></div></div>
+        <div class="attachment-card">
+          <div class="attachment-header">
+            <div class="attachment-header-right"><i class="fas fa-file-alt" style="color:var(--primary);font-size:18px"></i><span>كروكي معتمد من مكتب هندسي</span><span class="required-badge">إلزامي</span></div>
+            <span class="status-badge success"><i class="fas fa-check-circle"></i> مرفق</span>
+          </div>
+          <div class="attachment-body">
+            <div class="attachment-preview">
+              <div class="attachment-thumb"><i class="fas fa-drafting-compass"></i></div>
+              <div class="attachment-info">
+                <span class="attachment-name">كروكي_المنشأة_البيطرية_معتمد.pdf</span>
+                <div class="attachment-meta"><span><i class="fas fa-weight-hanging" style="margin-left:4px"></i>2.4 MB</span><span>•</span><span>PDF</span><span>•</span><span>2025-10-15</span></div>
+                <div style="margin-top:8px"><span style="font-size:12px;color:var(--primary);background:var(--primary-bg);padding:3px 10px;border-radius:50px;font-weight:600"><i class="fas fa-stamp"></i> معتمد من مكتب النور الهندسي</span></div>
+              </div>
+            </div>
+            <div class="attachment-actions">
+              <button class="btn-icon" title="استعراض" onclick="openModal()"><i class="fas fa-eye"></i></button>
+              <button class="btn-icon" title="تنزيل" onclick="showToast('جاري تنزيل الملف...')"><i class="fas fa-download"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wizard-footer">
+        <a href="page4.html" class="btn-secondary"><i class="fas fa-arrow-right"></i> السابق</a>
+        <a href="page6.html" class="btn-primary">التالي <i class="fas fa-arrow-left"></i></a>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="main-footer"><div class="container"><div class="footer-content"><p>© 2025 منصة نعمة - وزارة البيئة والمياه والزراعة. جميع الحقوق محفوظة.</p><div class="footer-links"><a href="#">سياسة الخصوصية</a><a href="#">شروط الاستخدام</a><a href="#">تواصل معنا</a></div></div></div></footer>
+<div class="modal-overlay" id="previewModal">
+  <div class="modal-box">
+    <div class="modal-header"><div class="modal-title"><i class="fas fa-file-pdf" style="color:var(--primary);margin-left:8px"></i>كروكي معتمد من مكتب هندسي</div><button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button></div>
+    <div class="modal-body">
+      <div class="doc-preview">
+        <div style="font-size:72px;color:var(--primary);margin-bottom:16px"><i class="fas fa-drafting-compass"></i></div>
+        <div style="font-size:17px;font-weight:700;margin-bottom:6px">كروكي_المنشأة_البيطرية_معتمد.pdf</div>
+        <div style="font-size:13px;color:#888;margin-bottom:20px">PDF • 2.4 MB • 3 صفحات • 2025-10-15</div>
+        <div style="background:var(--primary-bg);border:2px dashed var(--primary);border-radius:10px;padding:16px;font-size:13px;color:var(--primary-dark);font-weight:600;margin-bottom:16px">
+          <i class="fas fa-stamp" style="margin-left:8px"></i>معتمد من: مكتب النور الهندسي<br>
+          <span style="font-size:11px;color:#888;font-weight:400">رقم الاعتماد: ENG-2025-4521</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:right;background:#f8f9fb;border-radius:10px;padding:14px;border:1px solid #dde2ee">
+          <div><div style="font-size:11px;color:#888;margin-bottom:3px">المساحة</div><div style="font-weight:700">201 م²</div></div>
+          <div><div style="font-size:11px;color:#888;margin-bottom:3px">عدد الغرف</div><div style="font-weight:700">8 غرف</div></div>
+          <div><div style="font-size:11px;color:#888;margin-bottom:3px">الطوابق</div><div style="font-weight:700">طابق واحد</div></div>
+          <div><div style="font-size:11px;color:#888;margin-bottom:3px">نوع البناء</div><div style="font-weight:700">خرساني</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-primary" onclick="showToast('جاري تنزيل الملف...');closeModal()"><i class="fas fa-download"></i> تنزيل</button>
+      <button class="btn-secondary" onclick="closeModal()">إغلاق</button>
+    </div>
+  </div>
+</div>
+<script>
+function openModal(){document.getElementById('previewModal').classList.add('open');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('previewModal').classList.remove('open');document.body.style.overflow='';}
+function showToast(msg){var t=document.createElement('div');t.style.cssText='position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#333;color:white;padding:12px 24px;border-radius:50px;font-family:Tajawal,sans-serif;font-size:14px;z-index:9999';t.textContent=msg;document.body.appendChild(t);setTimeout(function(){t.remove();},3000);}
+document.getElementById('previewModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+</script>
+</body></html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نعمة - مراجعة الطلب</title>
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+.submit-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center}
+.submit-modal-overlay.open{display:flex}
+.submit-modal{background:white;border-radius:20px;padding:48px 40px;max-width:460px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.25)}
+.success-icon{width:88px;height:88px;background:linear-gradient(135deg,#2e7d32,#00897b);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:38px;color:white;box-shadow:0 8px 25px rgba(46,125,50,0.35)}
+.request-num-box{background:#e8f5e9;border:1.5px solid #2e7d32;border-radius:12px;padding:16px 24px;margin-bottom:28px}
+</style>
+</head>
+<body>
+<header class="main-header"><div class="header-container">
+  <div class="header-right"><div class="logo-fallback" style="display:flex"><div class="logo-icon">🌿</div><span class="logo-text">نعمة</span></div></div>
+  <div class="header-left"><div class="user-info"><span class="user-name">محمد العتيبي</span><div class="user-avatar"><i class="fas fa-user"></i></div></div><div class="lang-switch">EN</div></div>
+</div></header>
+<div class="breadcrumb-bar"><div class="container">
+  <span class="breadcrumb-item"><a href="page1.html">الرئيسية</a></span>
+  <span class="breadcrumb-sep"><i class="fas fa-chevron-left"></i></span>
+  <span class="breadcrumb-item active">تغيير نشاط لمنشأة بيطرية</span>
+</div></div>
+<main class="main-content"><div class="container">
+  <div class="service-strip"><div class="service-strip-icon"><i class="fas fa-exchange-alt"></i></div><div><h2 class="service-strip-title">تغيير نشاط لمنشأة بيطرية</h2><span class="service-strip-sub">وزارة البيئة والمياه والزراعة</span></div></div>
+  <div class="wizard-layout">
+    <aside class="progress-sidebar">
+      <div class="progress-title">خطوات الطلب</div>
+      <ul class="steps-list">
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 1</span><span class="step-name">الصفحة الرئيسية</span></div></li>
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 2</span><span class="step-name">قيود الاستخدام</span></div></li>
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 3</span><span class="step-name">البيانات المسترجعة</span></div></li>
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 4</span><span class="step-name">بيانات الطلب</span></div></li>
+        <li class="step-item completed"><div class="step-num"><i class="fas fa-check" style="font-size:13px"></i></div><div class="step-info"><span class="step-label">الخطوة 5</span><span class="step-name">المرفقات</span></div></li>
+        <li class="step-item active"><div class="step-num">6</div><div class="step-info"><span class="step-label">الخطوة 6</span><span class="step-name">مراجعة الطلب</span></div></li>
+      </ul>
+      <div class="progress-bar-wrap"><div class="progress-bar-label"><span>التقدم</span><span>92%</span></div><div class="progress-bar-track"><div class="progress-bar-fill" style="width:92%"></div></div></div>
+    </aside>
+    <div class="wizard-content">
+      <div class="wizard-header"><div class="wizard-header-icon"><i class="fas fa-clipboard-check"></i></div><div class="wizard-header-title"><h2>مراجعة الطلب</h2><p>يرجى مراجعة جميع البيانات المدخلة قبل تقديم الطلب</p></div></div>
+      <div class="wizard-body">
+        <div class="alert-box alert-info"><div class="alert-icon"><i class="fas fa-info-circle"></i></div><div class="alert-text"><strong>مراجعة نهائية</strong>يرجى التحقق من صحة جميع البيانات أدناه. بعد تقديم الطلب لن يمكن تعديله.</div></div>
+        <div class="review-section">
+          <div class="review-section-title"><i class="fas fa-user-tie" style="color:var(--primary)"></i>بيانات المالك / المفوّض<a href="page3.html" style="font-size:12px;color:var(--primary);font-weight:600;margin-right:auto;text-decoration:none"><i class="fas fa-edit"></i> تعديل</a></div>
+          <div class="review-grid">
+            <div class="review-field"><span class="review-label">اسم المالك</span><span class="review-value">محمد بن سعد العتيبي</span></div>
+            <div class="review-field"><span class="review-label">رقم الهوية الوطنية</span><span class="review-value">1057842369</span></div>
+            <div class="review-field"><span class="review-label">رقم الجوال</span><span class="review-value">0501234567</span></div>
+            <div class="review-field"><span class="review-label">البريد الإلكتروني</span><span class="review-value">m.alotaibi@email.com</span></div>
+            <div class="review-field"><span class="review-label">الجنسية</span><span class="review-value">سعودي</span></div>
+            <div class="review-field"><span class="review-label">صفة مقدم الطلب</span><span class="review-value">مالك المنشأة</span></div>
+          </div>
+        </div>
+        <div class="review-section">
+          <div class="review-section-title"><i class="fas fa-clinic-medical" style="color:var(--primary)"></i>بيانات المنشأة<a href="page3.html" style="font-size:12px;color:var(--primary);font-weight:600;margin-right:auto;text-decoration:none"><i class="fas fa-edit"></i> تعديل</a></div>
+          <div class="review-grid">
+            <div class="review-field"><span class="review-label">اسم المنشأة</span><span class="review-value">صيدلية الرعاية البيطرية</span></div>
+            <div class="review-field"><span class="review-label">رقم السجل التجاري</span><span class="review-value">1010123456</span></div>
+            <div class="review-field"><span class="review-label">رخصة بلدي</span><span class="review-value">1254854856</span></div>
+            <div class="review-field"><span class="review-label">المنطقة</span><span class="review-value">الرياض</span></div>
+            <div class="review-field"><span class="review-label">المحافظة</span><span class="review-value">الخرج</span></div>
+            <div class="review-field"><span class="review-label">المركز</span><span class="review-value">الدلم</span></div>
+            <div class="review-field"><span class="review-label">الحي</span><span class="review-value">الفيصلية</span></div>
+            <div class="review-field"><span class="review-label">الشارع</span><span class="review-value">القادسية</span></div>
+            <div class="review-field"><span class="review-label">المساحة الإجمالية</span><span class="review-value">201 م²</span></div>
+          </div>
+        </div>
+        <div class="review-section">
+          <div class="review-section-title"><i class="fas fa-building" style="color:var(--primary)"></i>بيانات المشروع الحالي<a href="page4.html" style="font-size:12px;color:var(--primary);font-weight:600;margin-right:auto;text-decoration:none"><i class="fas fa-edit"></i> تعديل</a></div>
+          <div class="review-grid">
+            <div class="review-field"><span class="review-label">النشاط الحالي</span><span class="review-value">صيدلية بيطرية</span></div>
+            <div class="review-field"><span class="review-label">رقم الترخيص التشغيلي</span><span class="review-value">24/03/007001/065</span></div>
+            <div class="review-field"><span class="review-label">تاريخ الإصدار</span><span class="review-value">2025-10-20 | 1447-04-28</span></div>
+            <div class="review-field"><span class="review-label">تاريخ الانتهاء</span><span class="review-value">2027-04-20 | 1448-11-13</span></div>
+          </div>
+        </div>
+        <div class="review-section">
+          <div class="review-section-title"><i class="fas fa-arrows-alt-h" style="color:var(--primary)"></i>بيانات المشروع الجديد<a href="page4.html" style="font-size:12px;color:var(--primary);font-weight:600;margin-right:auto;text-decoration:none"><i class="fas fa-edit"></i> تعديل</a></div>
+          <div class="review-grid">
+            <div class="review-field"><span class="review-label">النشاط المراد الانتقال إليه</span><span class="review-value">عيادة بيطرية</span></div>
+            <div class="review-field"><span class="review-label">نوع المنشأة</span><span class="review-value">عيادة الرعاية البيطرية الأولية</span></div>
+          </div>
+        </div>
+        <div class="review-section">
+          <div class="review-section-title"><i class="fas fa-paperclip" style="color:var(--primary)"></i>المرفقات<a href="page5.html" style="font-size:12px;color:var(--primary);font-weight:600;margin-right:auto;text-decoration:none"><i class="fas fa-edit"></i> تعديل</a></div>
+          <div class="review-attachment"><div class="attachment-thumb"><i class="fas fa-drafting-compass"></i></div><div class="attachment-info"><span class="attachment-name">كروكي_المنشأة_البيطرية_معتمد.pdf</span><div class="attachment-meta"><span>كروكي معتمد من مكتب هندسي</span><span>•</span><span>2.4 MB</span></div></div><span class="status-badge success"><i class="fas fa-check-circle"></i> مرفق</span></div>
+        </div>
+        <div class="alert-box alert-success" style="margin-top:24px"><div class="alert-icon"><i class="fas fa-gavel"></i></div><div class="alert-text"><strong>إقرار وتعهد</strong>أقر بأن جميع البيانات والمعلومات المقدمة في هذا الطلب صحيحة ودقيقة، وأنني مسؤول مسؤولية كاملة عن صحتها.</div></div>
+      </div>
+      <div class="wizard-footer">
+        <a href="page5.html" class="btn-secondary"><i class="fas fa-arrow-right"></i> السابق</a>
+        <button class="btn-primary" onclick="document.getElementById('successModal').classList.add('open');document.body.style.overflow='hidden'"><i class="fas fa-paper-plane"></i> تقديم الطلب</button>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="main-footer"><div class="container"><div class="footer-content"><p>© 2025 منصة نعمة - وزارة البيئة والمياه والزراعة. جميع الحقوق محفوظة.</p><div class="footer-links"><a href="#">سياسة الخصوصية</a><a href="#">شروط الاستخدام</a><a href="#">تواصل معنا</a></div></div></div></footer>
+<div class="submit-modal-overlay" id="successModal">
+  <div class="submit-modal">
+    <div class="success-icon"><i class="fas fa-check"></i></div>
+    <div style="font-size:22px;font-weight:800;color:#1a1a2e;margin-bottom:10px">تم تقديم الطلب بنجاح!</div>
+    <div style="font-size:14px;color:#666;line-height:1.8;margin-bottom:24px">لقد تم استلام طلبك وسيتم مراجعته من قِبل الجهة المختصة.<br>سيتم إشعارك عبر البريد الإلكتروني والجوال.</div>
+    <div class="request-num-box"><div style="font-size:12px;color:#999;margin-bottom:4px;font-weight:600">رقم الطلب</div><div style="font-size:20px;font-weight:800;color:#1b5e20;letter-spacing:2px">VET-2025-084521</div></div>
+    <div style="display:flex;gap:12px;justify-content:center">
+      <a href="page1.html" class="btn-primary"><i class="fas fa-home"></i> الرئيسية</a>
+      <button class="btn-secondary" onclick="window.print()"><i class="fas fa-print"></i> طباعة</button>
+    </div>
+  </div>
+</div>
+</body></html>
